@@ -1,13 +1,21 @@
-# from models import Actor
-# from managers import ActorManager
-#
-# if __name__ == "__main__":
-#     Actor.objects = ActorManager()
-#
-#     Actor.objects.create(first_name="Emma", last_name="Watson")
-#     Actor.objects.create(first_name="Daniel", last_name="Radclife")
-#     print(Actor.objects.all())
-#     Actor.objects.update(2, "Daniel", "Radcliffe")
-#     print(Actor.objects.all())
-#     Actor.objects.delete(1)
-#     print(Actor.objects.all())
+"""
+I have a problem - Pycharm doesn`t work
+with SQLite3 on my machine, I don`t know
+why, so I can`t test my code. I hope, queries
+in ActorManager configured correctly.
+"""
+
+
+from models import Actor
+from managers import ActorManager
+
+if __name__ == "__main__":
+    Actor.objects = ActorManager()
+
+    Actor.objects.create(first_name="Emma", last_name="Watson")
+    Actor.objects.create(first_name="Daniel", last_name="Radclife")
+    print(Actor.objects.all())
+    Actor.objects.update(2, "Daniel", "Radcliffe")
+    print(Actor.objects.all())
+    Actor.objects.delete(1)
+    print(Actor.objects.all())
