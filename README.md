@@ -27,3 +27,5 @@ with given properties.
 
 #### 4. Test
 Test different methods in the `main.py` module.
+
+### Note: Check your code using this [checklist](checklist.md) before pushing your solution.
