@@ -2,7 +2,7 @@
 
 ## Don't Push db files
 
-Make sure you don't push db files (such as files with `.sqlite`, `.db3`, etc. expansion).
+Make sure you don't push db files (files with `.sqlite`, `.db3`, etc. expansion).
 
 ## Code Style
 
