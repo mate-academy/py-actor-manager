@@ -1,6 +1,6 @@
 # Actor manager
 
-- Read [the guideline](https://github.com/mate-academy/py-task-guideline/blob/main/README.md) before start
+Read [the guideline](https://github.com/mate-academy/py-task-guideline/blob/main/README.md) before starting.
 
 In this task, you should create a manager for the dataclass `Actor`.
 
