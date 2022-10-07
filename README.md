@@ -1,6 +1,6 @@
 # Actor manager
 
-- Read [the guideline](https://github.com/mate-academy/py-task-guideline/blob/main/README.md) before start
+Read [the guideline](https://github.com/mate-academy/py-task-guideline/blob/main/README.md) before starting.
 
 In this task, you should create a manager for the dataclass `Actor`.
 
@@ -27,3 +27,5 @@ with given properties.
 
 #### 4. Test
 Test different methods in the `main.py` module.
+
+### Note: Check your code using this [checklist](checklist.md) before pushing your solution.
