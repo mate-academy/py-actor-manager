@@ -20,14 +20,15 @@ class ActorManager:
             f"SELECT * FROM {self.table}"
         )
         return [
-            Actor() for row in actors_cursor
+            Actor(id, first_name, last_name)
+            for id, first_name, last_name in actors_cursor
         ]
 
     def update(self, id: int, first_name: str, last_name: str) -> None:
         self._connection.execute(
             f"UPDATE {self.table} "
             "SET first_name = ?, last_name = ? WHERE id = ?",
-            (id, first_name, last_name)
+            (first_name, last_name, id)
         )
         self._connection.commit()
 
