@@ -23,10 +23,10 @@ class ActorManager:
 
     def all(self) -> list:
         actor_cursor = self._connection.execute(
-            f"SELECt * FROM {self.table_name}"
+            f"SELECT * FROM {self.table_name}"
         )
         return [
-            Actor(id=row[1], first_name=row[0], last_name=row[2])
+            Actor(id=row[0], first_name=row[1], last_name=row[2])
             for row in actor_cursor
         ]
 
