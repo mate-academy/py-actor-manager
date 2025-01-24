@@ -11,4 +11,3 @@ if __name__ == "__main__":
     print(Actor.objects.all())
     Actor.objects.delete(1)
     print(Actor.objects.all())
-
