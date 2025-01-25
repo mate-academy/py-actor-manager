@@ -20,7 +20,6 @@ class ActorManager:
         actors_cursor = self._connection.execute(
             f"SELECT * FROM {self.table_name}"
         )
-        self._connection.commit()
         return [Actor(*actor) for actor in actors_cursor]
 
     def update(
