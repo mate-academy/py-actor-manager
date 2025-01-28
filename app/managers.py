@@ -2,28 +2,40 @@ import sqlite3
 
 from models import Actor
 
+
 class ActorManager:
     def __init__(self) -> None:
-        self._connection = sqlite3.connect(r"C:\Users\Новатор 3\PycharmProjects\py-actor-manager\cinema.sqlite")
+        self._connection = (sqlite3.connect
+                            (r"C:\Users\Новатор 3\PycharmProjects"
+                             r"\py-actor-manager\cinema.sqlite"))
         self.table_name = "actors"
 
-    def create(self, new_first_name: str, new_last_name: str) -> None:
+    def create(
+            self,
+            new_first_name: str,
+            new_last_name: str
+    ) -> None:
         self._connection.execute(
-            f"INSERT INTO {self.table_name} (first_name, last_name) VALUES (?,?)",
+            f"INSERT INTO {self.table_name} "
+            "(first_name, last_name) VALUES (?,?)",
             (new_first_name, new_last_name)
         )
         self._connection.commit()
 
-
     def all(self) -> list:
         actors_cursor = self._connection.execute(
-            f"SELECT * FROM actors"
+            f"SELECT * FROM {self.table_name}"
         )
         return [
             Actor(*row) for row in actors_cursor
         ]
 
-    def update(self, id_to_change: int, update_first_name: str, update_last_name: str) -> None:
+    def update(
+            self,
+            id_to_change: int,
+            update_first_name: str,
+            update_last_name: str
+    ) -> None:
         self._connection.execute(
             f"UPDATE {self.table_name} "
             "SET first_name = ?, last_name = ?"
@@ -32,7 +44,7 @@ class ActorManager:
         )
         self._connection.commit()
 
-    def delete(self, id_to_delete) -> None:
+    def delete(self, id_to_delete: int) -> None:
         self._connection.execute(
             f"DELETE FROM {self.table_name} WHERE id = ? ",
             (id_to_delete,)

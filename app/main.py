@@ -1,11 +1,11 @@
 from models import Actor
-from manager import ActorManager
+from managers import ActorManager
 
 if __name__ == "__main__":
     Actor.objects = ActorManager()
 
     Actor.objects.create("Emma", "Watson")
-    Actor.objects.create("Daniel", "Radclife")
+    Actor.objects.create("Daniel", "Radcliffe")
     print(Actor.objects.all())
     Actor.objects.update(2, "Daniel", "Radcliffe")
     print(Actor.objects.all())
