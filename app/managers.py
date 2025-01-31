@@ -1,13 +1,15 @@
 import sqlite3
 
 from models import Actor
+from typing import List
+
 
 class ActorManager:
-    def __init__(self):
-        self._connection = sqlite3.connect('actor.db')
-        self.table_name = 'actor'
+    def __init__(self) -> None:
+        self._connection = sqlite3.connect("actor.db")
+        self.table_name = "actor"
 
-    def create(self, first_name: str, last_name: str):
+    def create(self, first_name: str, last_name: str) -> None:
         self._connection.execute(
             f"INSERT INTO {self.table_name}(first_name, last_name)"
             f" VALUES (?, ?)",
@@ -15,7 +17,7 @@ class ActorManager:
         )
         self._connection.commit()
 
-    def all(self):
+    def all(self) -> List:
         actors_db_cursor = self._connection.execute(
             f"SELECT * FROM {self.table_name}"
         )
@@ -23,7 +25,10 @@ class ActorManager:
             Actor(*row) for row in actors_db_cursor
         ]
 
-    def update(self, id_to_update: int, first_name: str, last_name: str):
+    def update(self,
+               id_to_update: int,
+               first_name: str,
+               last_name: str) -> None:
         self._connection.execute(
             f"UPDATE {self.table_name} "
             f"SET first_name = ?, last_name = ?"
@@ -32,7 +37,7 @@ class ActorManager:
         )
         self._connection.commit()
 
-    def delete(self, id_to_delete: int):
+    def delete(self, id_to_delete: int) -> None:
         self._connection.execute(
             f"DELETE FROM {self.table_name}"
             f"WHERE id = ?",
