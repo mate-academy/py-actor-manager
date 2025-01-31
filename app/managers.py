@@ -18,7 +18,6 @@ class ActorManager:
         )
         self._connection.commit()
 
-    # CREATE - C
     def create(self, first_name: str,
                last_name: str) -> None:
         self._connection.execute(
@@ -28,7 +27,6 @@ class ActorManager:
         )
         self._connection.commit()
 
-    # RETRIVE - R
     def all(self) -> list[Actor]:
         library_format_cursor = self._connection.execute(
             f"SELECT * FROM {self.table_name}"
@@ -37,7 +35,6 @@ class ActorManager:
             Actor(*row) for row in library_format_cursor
         ]
 
-    # UPDATE - U
     def update(self, id_to_update: int,
                new_first_name: str,
                new_last_name: str) -> None:
@@ -48,7 +45,6 @@ class ActorManager:
         )
         self._connection.commit()
 
-    # DELETE - D
     def delete(self, id_to_delete: int) -> None:
         self._connection.execute(
             f"DELETE FROM {self.table_name} WHERE id = ?",
