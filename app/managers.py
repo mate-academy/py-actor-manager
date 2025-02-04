@@ -7,7 +7,15 @@ class ActorManager:
         self.connection = sqlite3.connect("app/cinema.sqlite")
         self.cursor = self.connection.cursor()
 
-        self.cursor.execute()
+        self.cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS actors (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                first_name TEXT NOT NULL,
+                last_name TEXT NOT NULL
+                )
+                """
+        )
         self.connection.commit()
 
     def create(self, first_name: str, last_name: str) -> None:
