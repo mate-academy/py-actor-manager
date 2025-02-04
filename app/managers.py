@@ -38,14 +38,14 @@ class ActorManager:
             values.append(last_name)
 
         self._connection.execute(
-            f"UPDATE actors SET {", ".join(to_update)} WHERE id = ?",
+            f"UPDATE actors SET {', '.join(to_update)} WHERE id = ?",
             (*values, id_to_update)
         )
         self._connection.commit()
 
     def delete(self, id_to_delete: int) -> None:
         self._connection.execute(
-            f"DELETE FROM actors WHERE id = ?",
+            "DELETE FROM actors WHERE id = ?",
             (id_to_delete,)
         )
         self._connection.commit()
