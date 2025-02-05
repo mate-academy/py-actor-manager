@@ -9,13 +9,13 @@ class ActorManager:
         self.conn = sqlite3.connect(self._db_path)
 
     def all(self) -> list[Actor]:
-            cursor = self.conn.execute(
-                f"""
-                SELECT *
-                FROM {self._table_name}
-                """
-            )
-            return cursor.fetchall()
+        cursor = self.conn.execute(
+            f"""
+            SELECT *
+            FROM {self._table_name}
+            """
+        )
+        return cursor.fetchall()
 
     def create(self, first_name: str, last_name: str) -> None:
         self.conn.execute(
