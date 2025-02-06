@@ -1,13 +1,26 @@
-# from models import Actor
-# from managers import ActorManager
-#
-# if __name__ == "__main__":
-#     Actor.objects = ActorManager()
-#
-#     Actor.objects.create(first_name="Emma", last_name="Watson")
-#     Actor.objects.create(first_name="Daniel", last_name="Radclife")
-#     print(Actor.objects.all())
-#     Actor.objects.update(2, "Daniel", "Radcliffe")
-#     print(Actor.objects.all())
-#     Actor.objects.delete(1)
-#     print(Actor.objects.all())
+from app.managers import ActorManager
+
+if __name__ == "__main__":
+    manager = ActorManager()
+
+    # Create actors
+    actor1 = manager.create("Leonardo", "DiCaprio")
+    actor2 = manager.create("Johnny", "Depp")
+
+    print("Added actors:")
+    for actor in manager.all():
+        print(actor)
+
+    # Update actor data
+    manager.update(actor1.id, "Leonardo", "DiCaprio Updated")
+
+    print("\nAfter update:")
+    for actor in manager.all():
+        print(actor)
+
+    # Delete an actor
+    manager.delete(actor2.id)
+
+    print("\nAfter deletion:")
+    for actor in manager.all():
+        print(actor)
