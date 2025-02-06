@@ -1,26 +1,21 @@
-from models import Actor
 from managers import ActorManager
 
 
-if __name__ == "__main__":
-    Actor.objects = ActorManager()
-
-    Actor.objects.create(first_name="Emma", last_name="Watson")
-    Actor.objects.create(first_name="Daniel", last_name="Radclife")
-    print(Actor.objects.all())
-    Actor.objects.update(2, "Daniel", "Radcliffe")
-    print(Actor.objects.all())
-    Actor.objects.delete(1)
-    print(Actor.objects.all())
-
-
 def main() -> None:
-    db_path = "cinema.db"
-    manager = ActorManager(db_path)
+    manager = ActorManager()
 
-    manager.create("John", "Doe")
-    manager.create("Jane", "Smith")
+    manager.create("Emma", "Watson")
+    manager.create("Daniel", "Radcliffe")
 
-    actors = manager.all()
-    for actor in actors:
-        print(actor)
+    print(manager.all())
+
+    manager.update(2, "Daniel", "Radcliffe")
+
+    print(manager.all())
+
+    manager.delete(1)
+
+    print(manager.all())
+
+if __name__ == "__main__":
+    main()

@@ -1,4 +1,5 @@
 import sqlite3
+from typing import List
 from models import Actor
 
 
@@ -25,7 +26,7 @@ class ActorManager:
         )
         self.conn.commit()
 
-    def all(self) -> None:
+    def all(self) -> List[Actor]:
         self.cursor.execute("SELECT * FROM actors")
         rows = self.cursor.fetchall()
         return [
