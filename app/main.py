@@ -13,7 +13,8 @@ if __name__ == "__main__":
     Actor.objects.delete(1)
     print(Actor.objects.all())
 
-def main():
+
+def main() -> None:
     db_path = "cinema.db"
     manager = ActorManager(db_path)
 
@@ -23,4 +24,3 @@ def main():
     actors = manager.all()
     for actor in actors:
         print(actor)
-    
