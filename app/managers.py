@@ -45,3 +45,7 @@ class ActorManager:
             f"DELETE FROM {self.table_name} WHERE id=?",
             (id_to_delete,),
         )
+
+    def close(self) -> None:
+        if self._connection:
+            self._connection.close()
