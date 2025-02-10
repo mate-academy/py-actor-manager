@@ -1,17 +1,17 @@
 import sqlite3
 
 
-def initialize_database():
+def initialize_database() -> None:
     connector = sqlite3.connect("cinema.db")
     cursor = connector.cursor()
 
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS actors (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            first_name TEXT NOT NULL,
-            last_name TEXT NOT NULL
-        )
-    ''')
+    cursor.execute(
+        "CREATE TABLE IF NOT EXISTS actors ("
+        "   id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "   first_name TEXT NOT NULL, "
+        "   last_name TEXT NOT NULL"
+        ")"
+    )
 
     connector.commit()
     connector.close()
