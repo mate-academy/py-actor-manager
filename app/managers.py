@@ -3,17 +3,16 @@ from app.models import Actor
 
 
 class ActorManager:
-    def __init__(self):
-        self.connection = sqlite3.connect('cinema.sqlite')
+    def __init__(self) -> None:
+        self.connection = sqlite3.connect("cinema.sqlite")
         self.cursor = self.connection.cursor()
 
         self.cursor.execute(
             "CREATE TABLE IF NOT EXISTS actors ("
-                    "id INTEGER PRIMARY KEY, "
-                    "first_name TEXT NOT NULL, "
-                    "last_name TEXT NOT NULL)"
+            "id INTEGER PRIMARY KEY, "
+            "first_name TEXT NOT NULL, "
+            "last_name TEXT NOT NULL)"
         )
-
 
     def create(self, first_name: str, last_name: str) -> None:
         self.cursor.execute(
@@ -23,12 +22,13 @@ class ActorManager:
         )
         self.connection.commit()
 
-
     def all(self) -> list[Actor]:
         self.cursor.execute("SELECT * FROM actors")
         rows = self.cursor.fetchall()
-        return [Actor(id=row[0], first_name=row[1], last_name=row[2]) for row in rows]
-
+        return [Actor(id=row[0],
+                      first_name=row[1],
+                      last_name=row[2])
+                for row in rows]
 
     def update(self, actor_id: int, first_name: str, last_name: str) -> None:
         self.cursor.execute(
@@ -39,7 +39,6 @@ class ActorManager:
         )
         self.connection.commit()
 
-
     def delete(self, actor_id: int) -> None:
         self.cursor.execute(
             "DELETE FROM actors "
@@ -47,7 +46,6 @@ class ActorManager:
             (actor_id,)
         )
         self.connection.commit()
-
 
     def __del__(self) -> None:
         self.connection.close()
