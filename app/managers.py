@@ -6,7 +6,7 @@ from models import Actor
 class ActorManager:
     def __init__(self) -> None:
         self._connection = sqlite3.connect("../actors_db.sqlite")
-        self.table = "data"
+        self.table = "actors"
 
     def all(self) -> list[Actor]:
         router = self._connection.execute(
@@ -31,12 +31,14 @@ class ActorManager:
 
     def create(self, first_name: str, last_name: str) -> None:
         self._connection.execute(
-            "INSERT INTO data (FIRST_NAME, LAST_NAME) VALUES (?, ?)",
+            "INSERT INTO actors (FIRST_NAME, LAST_NAME) VALUES (?, ?)",
             (first_name, last_name)
         )
+        self._connection.commit()
 
     def delete(self, actor_id: int) -> None:
         self._connection.execute(
             f"DELETE FROM {self.table} WHERE id = ?",
             (actor_id,)
         )
+        self._connection.commit()
