@@ -24,11 +24,9 @@ class ActorManager:
         return result
 
     def update(self, identifier: int, first_n: str, last_n: str) -> None:
-        update_query = (f"UPDATE actors "
-                        f"SET first_name = '{first_n}', last_name = '{last_n}'"
-                        f" WHERE id = {identifier}")
-        print(update_query)
-        self.cursor.execute(update_query)
+        update_query = ("UPDATE actors SET first_name = (?), last_name = (?) "
+                        "WHERE id = (?)", (first_n, last_n, identifier))
+        self.cursor.execute(str(update_query))
 
     def delete(self, identifier: int) -> None:
-        self.cursor.execute(f"DELETE FROM actors WHERE id = {identifier}")
+        self.cursor.execute("DELETE FROM actors WHERE id = ?", (identifier,))
