@@ -27,6 +27,7 @@ class ActorManager:
         update_query = ("UPDATE actors SET first_name = (?), last_name = (?) "
                         "WHERE id = (?)", (first_n, last_n, identifier))
         self.cursor.execute(str(update_query))
+        self.connection.commit()
 
     def delete(self, identifier: int) -> None:
         self.cursor.execute("DELETE FROM actors WHERE id = ?", (identifier,))
