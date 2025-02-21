@@ -10,13 +10,11 @@ class ActorManager:
     def create(self, **kwargs) -> None:
         self.cursor.execute("SELECT COUNT(*) FROM actors")
         row_count = int(self.cursor.fetchall()[0][0])
-        print(row_count)
-        self.connection.execute("INSERT INTO actors "
-                                "(id, first_name, last_name) "
-                                f"VALUES (?, ?, ?)",
-                                (row_count + 1,
-                                 kwargs["first_name"],
-                                 kwargs["last_name"]))
+        insert_str = "INSERT"
+        query = f"{insert_str} INTO actors (id, first_name, last_name) " \
+            "VALUES (?, ?, ?)",\
+            (row_count + 1, kwargs["first_name"], kwargs["last_name"])
+        self.connection.execute(str(query))
 
     def all(self) -> list[Actor]:
         self.cursor.execute("SELECT * FROM actors")
