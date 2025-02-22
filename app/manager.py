@@ -20,9 +20,10 @@ class ActorManager:
         )
         self._connection.commit()
 
-    def create(self, first_name:str, last_name:str):
+    def create(self, first_name: str, last_name: str):
         self._connection.execute(
-            f"INSERT INTO {self.table_name} (actors_first_name, actors_last_name) "
+            f"INSERT INTO {self.table_name} "
+            f"(actors_first_name, actors_last_name) "
             f"VALUES (?, ?) ",
             (first_name, last_name)
         )
@@ -36,7 +37,7 @@ class ActorManager:
             Actor(*row) for row in actors_cursor
         ]
 
-    def update(self,id_to_update:int, name_to_update:str, surname_to_update:str):
+    def update(self,id_to_update: int, name_to_update: str, surname_to_update: str):
         self._connection.execute(
             f"UPDATE {self.table_name} "
             "SET actors_first_name = ?, actors_last_name = ? "
