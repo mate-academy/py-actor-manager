@@ -5,7 +5,7 @@ from models import Actor
 
 class ActorManager:
     def __init__(self):
-        self._connection = sqlite3.connect('library_db.sqlite')
+        self._connection = sqlite3.connect('Cinema')
         self.table_name = "cinema"
 
     def create(self, first_name: str, last_name: str):
@@ -17,7 +17,7 @@ class ActorManager:
 
     def all(self):
         literature_format_cursor = self._connection.execute(
-            "SELECT * FROM cinema"
+            "SELECT * FROM {self.table_name}"
         )
         return [Actor(*row) for row in literature_format_cursor]
 
