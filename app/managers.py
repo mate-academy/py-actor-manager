@@ -1,14 +1,15 @@
 import sqlite3
+import os
 
 from models import Actor
 
 
 class ActorManager:
     def __init__(self) -> None:
-        self._connection = sqlite3.connect("D:\\"
-                                           "PycharmProject\\"
-                                           "py-actor-manager\\"
-                                           "cinema.db")
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        db_path = os.path.join(base_dir, "cinema.db")
+
+        self._connection = sqlite3.connect(db_path)
         self.name = "actors"
 
     def create(self, first_name: str, last_name: str) -> None:
