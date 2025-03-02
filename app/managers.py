@@ -3,20 +3,23 @@ from madels import Actor
 
 
 class ActorManager:
-    def __init__(self):
+    def __init__(self) -> None:
         self._connection = sqlite3.connect("cinema.sqlite")
         self._connection.row_factory = sqlite3.Row
 
-    def all(self):
+    def all(self) -> None:
         actor_cursor = self._connection.execute(
             "SELECT * FROM actors"
         )
         actors = [
-            Actor(id=row["id"], first_name=row["first_name"], last_name=row["last_name"]) for row in actor_cursor.fetchall()
+            Actor(id=row["id"],
+                  first_name=row["first_name"],
+                  last_name=row["last_name"])
+            for row in actor_cursor.fetchall()
         ]
         return actors
 
-    def create(self, first_name: str, last_name: str):
+    def create(self, first_name: str, last_name: str) -> None:
         cursor = self._connection.cursor()
         cursor.execute(
             "INSERT INTO actors (first_name, last_name) VALUES (?, ?)",
@@ -25,12 +28,12 @@ class ActorManager:
         self._connection.commit()
         actor_id = cursor.lastrowid
         return Actor(
-            id=actor_id,
-            first_name=first_name,
-            last_name=last_name
+            id = actor_id,
+            first_name = first_name,
+            last_name = last_name
         )
 
-    def update(self, actor_id: int, first_name=None, last_name=None):
+    def update(self, actor_id: int, first_name=None, last_name=None) -> None:
         if first_name:
             self._connection.execute(
                 "UPDATE actors SET first_name = ? WHERE id = ?",
@@ -43,7 +46,7 @@ class ActorManager:
             )
         self._connection.commit()
 
-    def delete(self, actor_id):
+    def delete(self, actor_id: int) -> None:
         self._connection.execute(
             "DELETE FROM actors WHERE id = ?",
             (actor_id,)
