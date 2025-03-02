@@ -33,7 +33,7 @@ class ActorManager:
             last_name=last_name
         )
 
-    def update(self, actor_id: int, first_name: str = None, last_name: str = None) -> None:
+    def update(self, actor_id: int, first_name: str, last_name: str) -> None:
         if first_name:
             self._connection.execute(
                 "UPDATE actors SET first_name = ? WHERE id = ?",
