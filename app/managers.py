@@ -1,6 +1,6 @@
 import sqlite3
 
-from models import Actor
+from app.models import Actor
 
 
 class ActorManager:
@@ -45,3 +45,4 @@ class ActorManager:
             f"DELETE FROM {self.table_name} WHERE id= ? ",
             (id_to_delete,)
         )
+        self._connection.commit()
