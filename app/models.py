@@ -7,5 +7,5 @@ class Actor:
     last_name: str
 
 
-#f __name__ == '__main__':
+# if __name__ == '__main__':
 #    Actor = Actor()
