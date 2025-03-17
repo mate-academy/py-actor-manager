@@ -5,30 +5,30 @@ from managers import ActorManager
 
 def main() -> None:
     """Основная функция для тестирования функциональности."""
-    # Инициализация менеджера
-    Actor.objects = ActorManager()
+    # Создание экземпляра менеджера
+    manager = ActorManager()
 
     # Создание актеров
-    Actor.objects.create(first_name="Emma", last_name="Watson")
-    Actor.objects.create(first_name="Daniel", last_name="Radclife")
+    actor1 = manager.create(first_name="Emma", last_name="Watson")
+    actor2 = manager.create(first_name="Daniel", last_name="Radclife")
 
     # Получение всех актеров и вывод
     print("All actors after creation:")
-    print(Actor.objects.all())
+    for actor in manager.all():
+        print(actor)
 
     # Обновление актера с id=2
-    Actor.objects.update(2, "Daniel", "Radcliffe")
-
-    # Получение всех актеров после обновления и вывод
-    print("All actors after update:")
-    print(Actor.objects.all())
+    updated_actor = manager.update(actor_id=actor2.id, first_name="Daniel", last_name="Radcliffe")
+    print(f"Updated actor: {updated_actor}")
 
     # Удаление актера с id=1
-    Actor.objects.delete(1)
+    manager.delete(actor_id=actor1.id)
+    print(f"Deleted actor with id: {actor1.id}")
 
     # Получение всех актеров после удаления и вывод
     print("All actors after deletion:")
-    print(Actor.objects.all())
+    for actor in manager.all():
+        print(actor)
 
 
 if __name__ == "__main__":
