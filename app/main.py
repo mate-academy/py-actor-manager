@@ -1,5 +1,4 @@
 # main.py
-from models import Actor
 from managers import ActorManager
 
 
@@ -18,7 +17,8 @@ def main() -> None:
         print(actor)
 
     # Обновление актера с id=2
-    updated_actor = manager.update(actor_id=actor2.id, first_name="Daniel", last_name="Radcliffe")
+    updated_actor = manager.update(actor_id=actor2.id,
+                                   first_name="Daniel", last_name="Radcliffe")
     print(f"Updated actor: {updated_actor}")
 
     # Удаление актера с id=1
