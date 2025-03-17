@@ -48,12 +48,8 @@ class ActorManager:
         self,
         id_to_delete: int
     ) -> None:
-        model = f"""
-            UPDATE {self.table_name}
-            SET first_name = ?, last_name = ?
-            WHERE id = ?
-            """
         self._connection.execute(
-            model, (id_to_delete)
+            f"DELETE FROM {self.table_name} WHERE id = ? ",
+            (id_to_delete)
         )
         self._connection.commit()
