@@ -3,11 +3,20 @@ from app.models import Actor
 
 
 class ActorManager:
-
     def __init__(self, db_path: str) -> None:
         self.db_path = db_path
         self.conn = sqlite3.connect(db_path)
         self.cursor = self.conn.cursor()
+
+        # Створення таблиці при ініціалізації, якщо вона не існує
+        self.cursor.execute("""
+        CREATE TABLE IF NOT EXISTS actors (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            first_name TEXT NOT NULL,
+            last_name TEXT NOT NULL
+        )
+        """)
+        self.conn.commit()
 
     def create(self, first_name: str, last_name: str) -> int:
         self.cursor.execute(
@@ -35,16 +44,7 @@ class ActorManager:
         self.conn.commit()
 
     def clear_table(self) -> None:
-        # Створення таблиці, якщо її ще немає
-        self.cursor.execute("""
-        CREATE TABLE IF NOT EXISTS actors (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            first_name TEXT NOT NULL,
-            last_name TEXT NOT NULL
-        )
-        """)
-        self.conn.commit()
-        # Очищення таблиці
+        # Очищення таблиці без її видалення
         self.cursor.execute("DELETE FROM actors")
         self.conn.commit()
 

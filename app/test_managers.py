@@ -17,15 +17,8 @@ def manager() -> ActorManager:
 # Фікстура для підготовки бази даних
 @pytest.fixture
 def setup_database(manager: ActorManager) -> None:
-    manager.cursor.execute("DROP TABLE IF EXISTS actors")
-    manager.cursor.execute("""
-    CREATE TABLE actors (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        first_name TEXT NOT NULL,
-        last_name TEXT NOT NULL
-    )
-    """)
-    manager.conn.commit()
+    # Використовуємо метод clear_table для очищення таблиці
+    manager.clear_table()
 
 
 # Тест створення актора
