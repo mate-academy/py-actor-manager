@@ -6,11 +6,10 @@ from models import Actor
 class ActorManager:
     def __init__(self) -> None:
         self.connection = sqlite3.connect("../cinema.sqlite")
-        self.table_name = "actors"
 
     def create(self, first_name: str, last_name: str) -> None:
         self.connection.execute(
-            f"INSERT INTO {self.table_name} "
+            "INSERT INTO actors "
             f"(first_name, last_name) VALUES (?, ?)",
             (first_name, last_name),
         )
@@ -24,7 +23,7 @@ class ActorManager:
 
     def update(self, id: int, first_name: str, last_name: str) -> None:
         self.connection.execute(
-            f"UPDATE {self.table_name} SET "
+            "UPDATE actors SET "
             f"first_name=?, last_name=? WHERE id=?",
             (first_name, last_name, id)
         )
@@ -32,7 +31,7 @@ class ActorManager:
 
     def delete(self, id: int) -> None:
         self.connection.execute(
-            f"DELETE FROM {self.table_name} WHERE id=?",
+            "DELETE FROM actors WHERE id=?",
             (id,)
         )
         self.connection.commit()
