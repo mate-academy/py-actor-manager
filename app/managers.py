@@ -17,7 +17,7 @@ class ActorManager:
         )
         self.conn.commit()
 
-    def update(self, first_name: str, last_name: str, actor_id: int) -> None:
+    def update(self, actor_id: int, first_name: str, last_name: str) -> None:
         if first_name:
             self.cursor.execute(
                 f"UPDATE {self.table_name} "
