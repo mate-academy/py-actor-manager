@@ -7,7 +7,7 @@ if __name__ == "__main__":
     print("All Actors:")
     actors = Actor.objects.all()
     for actor in actors:
-        print(f'{actor.id}: {actor.first_name} {actor.last_name}')
+        print(f"{actor.id}: {actor.first_name} {actor.last_name}")
 
     Actor.objects.update(2, "Daniel", "Radcliffe")
 
