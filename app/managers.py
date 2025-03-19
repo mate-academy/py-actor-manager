@@ -9,7 +9,7 @@ class ActorManager:
 
     def all(self) -> list:
         actors_format_cursor = self._connection.execute(
-            f"SELECT * FROM {self.table_name}"
+            f"SELECT id, first_name, last_name FROM {self.table_name}"
         )
         return [
             Actor(*row) for row in actors_format_cursor
