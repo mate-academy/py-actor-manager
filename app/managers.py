@@ -47,5 +47,5 @@ class ActorManager:
         )
         self._connection.commit()
 
-    def __exit__(self, exc_type: any, exc_val: any, exc_tb: any) -> None:
+    def __del__(self) -> None:
         self._connection.close()
