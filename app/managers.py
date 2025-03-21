@@ -40,4 +40,4 @@ class ActorManager:
         self._connection.execute(
             "DELETE FROM actors WHERE id = ?",
             [id_to_delete])
-        self._connection.commit()
+        self._connection.commit()  # A
