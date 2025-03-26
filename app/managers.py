@@ -4,13 +4,14 @@ from models import Actors
 
 
 class ActorsManager:
-    def __init__(self):
-        self._connection = sqlite3.connect('cinema.sqlite')
-        self.table_name = 'actors'
+    def __init__(self) -> None:
+        self._connection = sqlite3.connect("cinema.sqlite")
+        self.table_name = "actors"
 
-    def create(self, first_name, last_name):
+    def create(self, first_name: str, last_name: str) -> None:
         self._connection.execute(
-            f'INSERT INTO {self.table_name} (first_name, last_name) VALUES (?, ?)',
+            f'INSERT INTO {self.table_name} (first_name, last_name) '
+            f'VALUES (?, ?)',
             (first_name, last_name)
         )
         self._connection.commit()
@@ -23,7 +24,8 @@ class ActorsManager:
             Actors(*row) for row in actor_cursor
         ]
 
-    def update(self, id_to_update: int, first_name: str, last_name: str):
+    def update(self, id_to_update: int, first_name: str, last_name: str)\
+            -> None:
         self._connection.execute(
             f"UPDATE {self.table_name} "
             "SET first_name=?, last_name=? "
@@ -32,7 +34,7 @@ class ActorsManager:
         )
         self._connection.commit()
 
-    def delete(self, id_to_delete: int):
+    def delete(self, id_to_delete: int) -> None:
         self._connection.execute(
             f"DELETE FROM {self.table_name} WHERE id=?",
             (id_to_delete,)
