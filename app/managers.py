@@ -1,9 +1,9 @@
 import sqlite3
 
-from models import Actor
+from models import Actors
 
 
-class ActorManager:
+class ActorsManager:
     def __init__(self):
         self._connection = sqlite3.connect('cinema.sqlite')
         self.table_name = 'actors'
@@ -20,7 +20,7 @@ class ActorManager:
             f"SELECT * FROM {self.table_name}"
         )
         return [
-            Actor(*row) for row in actor_cursor
+            Actors(*row) for row in actor_cursor
         ]
 
     def update(self, id_to_update: int, first_name: str, last_name: str):
