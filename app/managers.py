@@ -7,17 +7,17 @@ class ActorManager:
         self._connect = sqlite3.connect("cinema.sqlite")
         self.table_name = "actors"
 
-    def create(self, first_name: str, last_name: str) -> None:
+    def create(self, first_name: str, last_name: str, new_id: int) -> None:
         self._connect.execute(
             f"INSERT INTO {self.table_name}"
-            f" (first_name, last_name) VALUES (?, ?)",
-            (first_name, last_name)
+            f" (id, first_name, last_name) VALUES (?, ?, ?),
+            (new_id, first_name, last_name)
         )
         self._connect.commit()
 
     def all(self) -> list:
         literary_format_cursor = self._connect.execute(
-            f"SELECT first_name, last_name FROM {self.table_name}"
+            f"SELECT * FROM {self.table_name}"
         )
         return [
             Actor(*row) for row in literary_format_cursor
