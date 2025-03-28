@@ -25,7 +25,9 @@ class ActorManager:
             Actor(*row) for row in cursor
         ]
 
-    def update(self, id_to_update: int, first_name: str, last_name: str) -> None:
+    def update(self, id_to_update: int,
+               first_name: str,
+               last_name: str) -> None:
         self._connection.execute(
             f"UPDATE {self.table_name} "
             "SET first_name=?, last_name=?"
@@ -38,4 +40,3 @@ class ActorManager:
             f"DELETE FROM {self.table_name} WHERE id = ?",
         (id_to_delete,)
         )
-
