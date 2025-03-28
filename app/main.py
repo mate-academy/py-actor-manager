@@ -7,8 +7,9 @@ from managers import ActorManager
 connection = sqlite3.connect("cinema.sqlite")
 cursor = connection.cursor()
 cursor.execute(
-    "CREATE TABLE actors (id        INTEGER "
+    "CREATE TABLE actors (id       INTEGER "
     "                              PRIMARY KEY "
+    "                              AUTOINCREMENT"
     "                              UNIQUE "
     "                              NOT NULL, "
     "                      first_name TEXT, "
