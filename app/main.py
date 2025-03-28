@@ -7,13 +7,13 @@ from managers import ActorManager
 connection = sqlite3.connect("cinema.sqlite")
 cursor = connection.cursor()
 cursor.execute(
-    f"CREATE TABLE actors (id        INTEGER "
-    f"                              PRIMARY KEY "
-    f"                              UNIQUE "
-    f"                              NOT NULL, "
-    f"                      first_name TEXT, "
-    f"                      last_name  TEXT "
-    f");"
+    "CREATE TABLE actors (id        INTEGER "
+    "                              PRIMARY KEY "
+    "                              UNIQUE "
+    "                              NOT NULL, "
+    "                      first_name TEXT, "
+    "                      last_name  TEXT "
+    ");"
 )
 connection.close()
 
