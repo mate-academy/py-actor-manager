@@ -8,8 +8,9 @@ class ActorManager:
         self.table_name = "actors"
 
     def create(self, first_name: str, last_name: str) -> None:
-        cursor = self._connection.execute(
-            f"INSERT INTO {self.table_name} (first_name, last_name) VALUES (?, ?)",
+        self._connection.execute(
+            f"INSERT INTO {self.table_name} "
+            f"(first_name, last_name) VALUES (?, ?)",
             (first_name, last_name),
         )
         self._connection.commit()
@@ -22,7 +23,12 @@ class ActorManager:
             Actor(*row) for row in cinema_cursor
         ]
 
-    def update(self, id_to_update: int, first_name_update: str, last_name_update: str) -> None:
+    def update(
+            self,
+            id_to_update: int,
+            first_name_update: str,
+            last_name_update: str
+    ) -> None:
         self._connection.execute(
             f"UPDATE {self.table_name} "
             f"SET first_name = ?, last_name = ? "
