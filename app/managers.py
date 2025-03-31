@@ -5,17 +5,18 @@ from models import Actor
 
 class ActorManager:
     def __init__(self) -> None:
-        self._connections = sqlite3.connect('cinema.sqlite')
-        self.table_name = 'actors'
+        self._connections = sqlite3.connect("cinema.sqlite")
+        self.table_name = "actors"
 
     def create(self, first_name: str, last_name: str) -> None:
         self._connections.execute(
-            f"INSERT INTO {self.table_name} (first_name, last_name) VALUES (?, ?)",
+            f"INSERT INTO {self.table_name} (first_name, last_name) "
+            "VALUES (?, ?)",
             (first_name, last_name,)
         )
         self._connections.commit()
 
-    def all(self):
+    def all(self) -> list[Actor]:
         actors_cursor = self._connections.execute(
             f"SELECT * FROM {self.table_name}"
         )
@@ -24,7 +25,12 @@ class ActorManager:
             for row in actors_cursor
         ]
 
-    def update(self, id_to_update: int, first_name: str, last_name: str) -> None:
+    def update(
+            self,
+            id_to_update: int,
+            first_name: str,
+            last_name: str
+    ) -> None:
         self._connections.execute(
             f"UPDATE {self.table_name} "
             f"SET first_name=?, last_name=? "
