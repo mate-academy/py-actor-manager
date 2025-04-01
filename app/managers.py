@@ -22,9 +22,9 @@ class ActorManager:
         return [Actor(*row) for row in actors_cursor]
 
     def update(
-        self, 
-        id_update: int, 
-        new_first_name: str, 
+        self,
+        id_update: int,
+        new_first_name: str,
         new_last_name: str
     ) -> None:
         self._connection.execute(
