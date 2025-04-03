@@ -10,11 +10,10 @@ class ActorManager:
         self._connection = sqlite3.connect("cinema.sqlite")
 
     def create(self, first_name: str, last_name: str) -> None:
-        self._connection.execute(
-            f"INSERT INTO {self.table_name} "
-            f"(first_name, last_name) VALUES (?, ?)",
-            (first_name, last_name)
-        )
+        query = (f"INSERT INTO {self.table_name} "
+                 f"(first_name, last_name) VALUES (?, ?)")
+
+        self._connection.execute(query, (first_name, last_name))
         self._connection.commit()
 
     def all(self) -> list:
@@ -26,16 +25,13 @@ class ActorManager:
     def update(self, id_to_update: int,
                new_first_name: str, new_last_name: str) -> None:
 
+        query = f"UPDATE {self.table_name} SET first_name = (?), "
         self._connection.execute(
-            f"UPDATE {self.table_name} SET first_name = (?), "
-            f"last_name = (?) WHERE id = (?)",
-            (new_first_name, new_last_name, id_to_update)
+            query, (new_first_name, new_last_name, id_to_update)
         )
         self._connection.commit()
 
     def delete(self, id_to_delete: int) -> None:
-        self._connection.execute(
-            f"DELETE FROM {self.table_name} WHERE id = (?)",
-            (id_to_delete,)
-        )
+        query = f"DELETE FROM {self.table_name} WHERE id = (?)"
+        self._connection.execute(query, (id_to_delete,))
         self._connection.commit()
