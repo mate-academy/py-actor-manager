@@ -25,7 +25,8 @@ class ActorManager:
     def update(self, id_to_update: int,
                new_first_name: str, new_last_name: str) -> None:
 
-        query = f"UPDATE {self.table_name} SET first_name = (?), "
+        query = (f"UPDATE {self.table_name} "
+                 f"SET first_name = (?), last_name = (?) WHERE id = (?)")
         self._connection.execute(
             query, (new_first_name, new_last_name, id_to_update)
         )
