@@ -23,7 +23,6 @@ class ActorManager:
         actor_cursor = self._connection.execute(
             f"SELECT * FROM {self.table_name}"
         )
-        self._connection.commit()
         return [
             Actor(*row) for row in actor_cursor
         ]
