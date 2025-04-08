@@ -1,5 +1,6 @@
 import sqlite3
 from app.models import Actor
+from typing import Optional, Type
 
 
 class ActorManager:
@@ -7,7 +8,7 @@ class ActorManager:
         self.conn = sqlite3.connect("cinema.db")
         self.cursor = self.conn.cursor()
 
-    def __enter__(self):
+    def __enter__(self) -> None:
         return self
 
     def create(self, first_name: str, last_name: str) -> None:
@@ -36,5 +37,8 @@ class ActorManager:
         )
         self.conn.commit()
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+    def __exit__(self,
+                 exc_type: Optional[Type[BaseException]],
+                 exc_val: Optional[BaseException],
+                 exc_tb: Optional[object]) -> None:
         self.conn.close()
