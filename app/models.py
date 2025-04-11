@@ -3,6 +3,6 @@ from dataclasses import dataclass
 
 @dataclass
 class Actor:
-    id: str
+    id: int
     first_name: str
     last_name: str
