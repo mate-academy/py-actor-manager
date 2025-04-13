@@ -1,5 +1,6 @@
 import sqlite3
 
+from models import Actor
 
 class ActorManager:
     def __init__(self) -> None:
@@ -18,10 +19,7 @@ class ActorManager:
         actors_cursor = self._connection.execute(
             f"SELECT * FROM {self.table_name}"
         )
-        actors_list = []
-        for row in actors_cursor:
-            actors_list.append(row)
-        print(actors_list)
+        return [Actor(*row) for row in actors_cursor]
 
     def update(self, id_to_update: int,
                new_first_name: str,
