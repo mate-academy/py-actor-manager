@@ -18,11 +18,11 @@ class ActorManager:
             Actor(actor[0], actor[1], actor[2]) for actor in result
         ]
 
-    def create(self, first_name: str, last_name: str) -> None:
+    def create(self, id_: int, first_name: str, last_name: str) -> None:
         self._connection.execute(
-            f"INSERT INTO {self.table_name} (first_name, last_name) "
-            "VALUES (?, ?)",
-            (first_name, last_name)
+            f"INSERT INTO {self.table_name} (id, first_name, last_name) "
+            "VALUES (?, ?, ?)",
+            (id_, first_name, last_name)
         )
         self._connection.commit()
 
