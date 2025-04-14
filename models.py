@@ -3,6 +3,6 @@ from typing import Optional
 
 @dataclass
 class Actor:
-    id: Optional[int]
+    id: int
     first_name: str
     last_name: str
