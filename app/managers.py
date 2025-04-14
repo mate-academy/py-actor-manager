@@ -10,7 +10,7 @@ class ActorManager:
         )
         self.table_name = "actors"
 
-    def all(self) -> None:
+    def all(self) -> list:
         result = self._connection.execute(
             f"SELECT * FROM {self.table_name}"
         ).fetchall()
