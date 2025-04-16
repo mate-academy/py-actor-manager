@@ -3,9 +3,11 @@ import sqlite3
 
 from models import Actor
 
+
 class ActorManager:
-    def __init__(self):
-        self._connection = sqlite3.connect("/Users/dimon/projects/py-actor-manager/cinema.sqlite")
+    def __init__(self) -> None:
+        self._connection = sqlite3.connect("/Users/dimon/projects/"
+                                           "py-actor-manager/cinema.sqlite")
         self.table_name = "actors"
 
     def create(self, first_name: str, last_name: str) -> Actor:
@@ -21,19 +23,22 @@ class ActorManager:
             f"SELECT * FROM {self.table_name}"
         )
         return [
-            Actor (* spisok) for spisok in actor_cursor
+            Actor(* spisok) for spisok in actor_cursor
         ]
 
-    def update(self, id_new: int, first_name_new: str, last_name_new: str) -> Actor:
+    def update(self,
+               id_new: int,
+               first_name_new: str,
+               last_name_new: str) -> Actor:
         self._connection.execute(
             f"UPDATE {self.table_name}"
             f" SET first_name = ?, last_name = ?"
             f"WHERE id = ?",
-            (id_new, first_name_new, last_name_new)
+            (first_name_new, last_name_new, id_new)
         )
         self._connection.commit()
 
-    def delete(self, id_to_delete) -> Actor:
+    def delete(self, id_to_delete: int) -> Actor:
         self._connection.execute(
             f"DELETE FROM {self.table_name} WHERE id = ? ",
             (id_to_delete,)
