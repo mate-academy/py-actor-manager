@@ -48,8 +48,7 @@ class ActorManager:
             values.append(last_name)
         values.append(actor_id)
 
-        query = (f"UPDATE actors "
-                 f"SET {", ".join(updates)} "
+        query = (f"UPDATE actors SET {", ".join(updates)} "
                  f"WHERE id = ?")
         self.cursor.execute(query, values)
         self.conn.commit()
