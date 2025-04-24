@@ -29,7 +29,7 @@ class ActorManagers:
             last_name: str
     ) -> None:
         self._connection.execute(f"UPDATE {self.table_name} "
-                                 f"SET (first_name, last_name) = (?, ?) "
+                                 f"SET first_name = ?, last_name = ? "
                                  f"WHERE id = ?",
                                  (first_name, last_name, id_to_update))
 
@@ -44,5 +44,5 @@ class ActorManagers:
 
 if __name__ == "__main__":
     manager = ActorManagers()
-    print(manager.update(5, "Klein", "123"))
+    print(manager.update(5, "1drhdhdtj", "123"))
     manager.delete(6)
