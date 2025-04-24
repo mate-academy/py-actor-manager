@@ -47,6 +47,8 @@ class ActorManager:
             updates.append("last_name = ?")
             values.append(last_name)
         values.append(actor_id)
+        if not values:
+            raise ValueError
 
         query = (f"UPDATE actors SET {', '.join(updates)} "
                  f"WHERE id = ?")
