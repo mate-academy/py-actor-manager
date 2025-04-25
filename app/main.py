@@ -1,14 +1,15 @@
+from typing import List
 from models import Actor
 from managers import ActorManager
 
 
-def display_actors(title, actors):
-    print(f"\n{title}:")
+def display_actors(title: str, actors: List[Actor]) -> None:
+    print(f"\n{title}: ")
     for actor in actors:
         print(f"{actor.id}: {actor.first_name} {actor.last_name}")
 
 
-def main():
+def main() -> None:
     # Initialize manager (creates DB connection)
     manager = ActorManager()
 

@@ -1,6 +1,7 @@
 # models.py
 from dataclasses import dataclass
 
+
 @dataclass
 class Actor:
     id: int
