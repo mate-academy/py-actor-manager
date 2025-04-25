@@ -1,7 +1,7 @@
 from managers import ActorManager
 
 
-def main():
+def main() -> None:
     manager = ActorManager()
 
     # Criando atores

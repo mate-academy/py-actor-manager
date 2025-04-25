@@ -3,13 +3,13 @@ from models import Actor
 
 
 class ActorManager:
-    def __init__(self, db_name="cinema.db"):
+    def __init__(self, db_name: str = "cinema.db") -> None:
         self.connection = sqlite3.connect(db_name)
         self.cursor = self.connection.cursor()
         self.table_name = "actors"
         self._create_table()
 
-    def _create_table(self):
+    def _create_table(self) -> None:
         self.cursor.execute(
             f"""
             CREATE TABLE IF NOT EXISTS {self.table_name} (
@@ -33,7 +33,7 @@ class ActorManager:
         actor_id = self.cursor.lastrowid
         return Actor(id=actor_id, first_name=first_name, last_name=last_name)
 
-    def all(self) -> list:
+    def all(self) -> list[Actor]:
         self.cursor.execute(f"SELECT * FROM {self.table_name}")
         rows = self.cursor.fetchall()
         return [
@@ -44,8 +44,8 @@ class ActorManager:
     def update(
         self,
         actor_id: int,
-        first_name: str = None,
-        last_name: str = None
+        first_name: str | None = None,
+        last_name: str | None = None
     ) -> bool:
         if first_name:
             self.cursor.execute(
@@ -79,5 +79,5 @@ class ActorManager:
         self.connection.commit()
         return self.cursor.rowcount > 0
 
-    def __del__(self):
+    def __del__(self) -> None:
         self.connection.close()
