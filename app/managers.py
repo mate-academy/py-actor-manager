@@ -19,13 +19,20 @@ class ActorManager:
         """)
         self.connection.commit()
 
-    def create(self, first_name: str, last_name: str) -> None:
+    def create(self, first_name: str, last_name: str) -> Actor:
+        """Add a new actor and return the Actor instance with assigned ID."""
         cursor = self.connection.cursor()
         cursor.execute(
             "INSERT INTO actors (first_name, last_name) VALUES (?, ?)",
             (first_name, last_name)
         )
         self.connection.commit()
+
+        # Get the ID of the newly created actor
+        actor_id = cursor.lastrowid
+
+        # Return the Actor instance
+        return Actor(id=actor_id, first_name=first_name, last_name=last_name)
 
     def all(self) -> List[Actor]:
         cursor = self.connection.cursor()
