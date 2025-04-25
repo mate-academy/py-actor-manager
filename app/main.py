@@ -10,7 +10,7 @@ def display_actors(title: str, actors: List[Actor]) -> None:
 
 
 def main() -> None:
-    # Initialize manager (creates DB connection)
+    #  Initialize manager (creates DB connection)
     manager = ActorManager()
 
     # Create some actors
