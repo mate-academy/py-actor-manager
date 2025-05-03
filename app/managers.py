@@ -12,7 +12,7 @@ class ActorManager:
     def create(self, first_name: str, last_name: str) -> None:
         self._connection.execute(
             f"INSERT INTO {self.table_name}"
-            f" (first_name, last_name) VALUES (?, ?)",
+            f"(first_name, last_name) VALUES (?, ?)",
             (first_name, last_name)
         )
         self._connection.commit()
@@ -24,11 +24,11 @@ class ActorManager:
         return [Actor(*row) for row in results]
 
 # U - update
-    def udpate(self, new_first_name: str,
+    def update(self, new_first_name: str,
                new_last_name: str, id_to_delete: int) -> None:
         self._connection.execute(
             f"UPDATE {self.table_name}"
-            f" SET first_name = ?, last_name = ?, WHERE id = ?",
+            f" SET first_name = ?, last_name = ? WHERE id = ?",
             (new_first_name, new_last_name, id_to_delete)
         )
         self._connection.commit()
@@ -43,5 +43,5 @@ class ActorManager:
 
 if __name__ == "__main__":
     module_actor = ActorManager()
-    print(module_actor.udpate("Leonardo", "DiCaprio", 1))
+    print(module_actor.update("Leonardo", "DiCaprio", 1))
     module_actor.delete(6)
