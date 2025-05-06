@@ -30,6 +30,6 @@ class ActorManager:
         self.conn.commit()
 
     def delete(self, pk: int) -> None:
-        self.cursor.execute(f"DELETE FROM {self.table_name} WHERE id = ?",
-                            (pk,))
+        self.cursor.execute(f"DELETE FROM {self.table_name} "
+                            f"WHERE id = ?", (pk,))
         self.conn.commit()
