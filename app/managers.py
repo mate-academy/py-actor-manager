@@ -37,5 +37,5 @@ class ActorManager:
     cursor = self._connection.execute(
       f"SELECT * FROM {self.table_name}"
     )
-    return [Actor(*actor) for actor in actor.format.cursor]
+    return [Actor(*actor) for actor in cursor]
     
