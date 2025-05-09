@@ -11,17 +11,17 @@ class ActorManager:
   def create(self, first_name: str, last_name: str) -> None:
     self._connection.execute(
       f"INSERT INTO {self.table_name} "
-      f"(format) VALUES (?) ",
+      f"(first_name, last_name) VALUES (?, ?) ",
       (first_name, last_name,)
     )
     self._connection.commit()
 
   def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
-    self._conncetion.execute(
+    self._connection.execute(
       f"UPDATE {self.table_name} "
-      f"SET first_name=? AND last_name=? "
+      f"SET first_name=?, last_name=? "
       f"WHERE id=? ",
-      (pk, new_first_name, new_last_name,)
+      (new_first_name, new_last_name, pk,)
     )
     self._connection.commit()
 
@@ -34,7 +34,7 @@ class ActorManager:
     self._connection.commit()
 
   def all(self) -> list:
-    actor.format.cursor = self._connection.execute(
+    cursor = self._connection.execute(
       f"SELECT * FROM {self.table_name}"
     )
     return [Actor(*actor) for actor in actor.format.cursor]
