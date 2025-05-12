@@ -1,5 +1,6 @@
 import sqlite3
 
+from app.models import Actor
 
 class ActorManager:
     def __init__(self, db_name: str, table_name: str) -> None:
@@ -16,13 +17,15 @@ class ActorManager:
                 "pk INTEGER PRIMARY KEY, first_name TEXT, last_name TEXT)"
             )
 
-    def create(self, first_name: str, last_name: str) -> None:
-        self.conn.execute(
+    def create(self, first_name: str, last_name: str) -> Actor:
+        actor = self.conn.execute(
             f"INSERT INTO {self.table_name} (first_name, last_name) "
             "VALUES (?, ?)",
             (first_name, last_name)
-        )
+        ).fetchone()
         self.conn.commit()
+        return Actor(actor.pk, actor.first_name, actor.last_name)
+
 
     def all(self) -> list[tuple]:
         return self.conn.execute(
