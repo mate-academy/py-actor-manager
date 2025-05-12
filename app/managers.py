@@ -2,6 +2,7 @@ import sqlite3
 
 from app.models import Actor
 
+
 class ActorManager:
     def __init__(self, db_name: str, table_name: str) -> None:
         self.table_name = table_name
@@ -25,7 +26,6 @@ class ActorManager:
         ).fetchone()
         self.conn.commit()
         return Actor(actor.pk, actor.first_name, actor.last_name)
-
 
     def all(self) -> list[tuple]:
         return self.conn.execute(
