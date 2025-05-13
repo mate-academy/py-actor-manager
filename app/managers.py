@@ -19,18 +19,20 @@ class ActorManager:
             )
 
     def create(self, first_name: str, last_name: str) -> Actor:
-        actor = self.cur.execute(
+        self.cur.execute(
             f"INSERT INTO {self.table_name} (first_name, last_name) "
             "VALUES (?, ?)",
             (first_name, last_name)
         )
         self.conn.commit()
         pk = self.cur.lastrowid
-        inserted_actor = self.cur.execute(f"SELECT * FROM {self.table_name} WHERE id = ? ",(pk,)).fetchone()
+        inserted_actor = self.cur.execute(f"SELECT * FROM"
+                                          f" {self.table_name} WHERE id = ? "
+                                          , (pk,)).fetchone()
         return Actor(inserted_actor[0], inserted_actor[1], inserted_actor[2])
 
     def all(self) -> list[tuple]:
-        actors =  self.cur.execute(
+        actors = self.cur.execute(
             f"SELECT * FROM {self.table_name}"
         ).fetchall()
         result = []
