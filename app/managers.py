@@ -19,29 +19,37 @@ class ActorManager:
             )
 
     def create(self, first_name: str, last_name: str) -> Actor:
-        actor = self.conn.execute(
+        actor = self.cur.execute(
             f"INSERT INTO {self.table_name} (first_name, last_name) "
             "VALUES (?, ?)",
             (first_name, last_name)
-        ).fetchone()
+        )
         self.conn.commit()
-        return Actor(actor.pk, actor.first_name, actor.last_name)
+        pk = self.cur.lastrowid
+        inserted_actor = self.cur.execute(f"SELECT * FROM {self.table_name} WHERE id = ? ",(pk,)).fetchone()
+        return Actor(inserted_actor[0], inserted_actor[1], inserted_actor[2])
 
     def all(self) -> list[tuple]:
-        return self.conn.execute(
+        actors =  self.cur.execute(
             f"SELECT * FROM {self.table_name}"
         ).fetchall()
+        result = []
+        if len(actors) == 0:
+            return result
+        for i in actors:
+            result.append(Actor(i[0], i[1], i[2]))
+        return result
 
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
         self.conn.execute(
             f"UPDATE {self.table_name} SET first_name = ?, last_name = ? "
-            "WHERE pk = ?",
+            "WHERE id = ?",
             (new_first_name, new_last_name, pk)
         )
         self.conn.commit()
 
     def delete(self, pk: int) -> None:
         self.conn.execute(
-            f"DELETE FROM {self.table_name} WHERE pk = ?", (pk,)
+            f"DELETE FROM {self.table_name} WHERE id = ?", (pk,)
         )
         self.conn.commit()
