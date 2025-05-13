@@ -1,4 +1,8 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
-# add dataclass here
+@dataclass
+class Actor:
+    id: int = field(init=True)
+    first_name: str
+    last_name: str
