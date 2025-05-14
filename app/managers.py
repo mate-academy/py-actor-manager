@@ -26,8 +26,6 @@ class ActorManager:
             f"SELECT * FROM {self.table_name}"
         )
 
-        if not actors:
-            return []
         return [
             Actor(*row) for row in actors
         ]
