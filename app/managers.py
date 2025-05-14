@@ -3,7 +3,7 @@ from app.models import Actor
 
 
 class ActorManager:
-    def init(self, db_name: str, table_name: str) -> None:
+    def __init__(self, db_name: str, table_name: str) -> None:
         self.db_name = db_name
         self.connection = sqlite3.connect(db_name)
         self.connection.row_factory = sqlite3.Row
