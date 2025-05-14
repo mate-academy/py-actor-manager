@@ -1,4 +1,5 @@
 import sqlite3
+from typing import List
 
 from app.models import Actor
 
@@ -21,7 +22,7 @@ class ActorManager:
         self.connection.commit()
 
     # R - (Read / Retrieve) function
-    def all(self) -> Actor:
+    def all(self) -> List[Actor]:
         actors = self.connection.execute(
             f"SELECT * FROM {self.table_name}"
         )
