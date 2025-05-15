@@ -1,11 +1,11 @@
 import sqlite3
-
 from app.models import Actor
 from typing import List
 
 
-
 # add manager here
+
+
 class ActorManager:
     def __init__(self, db_name: str, table_name: str) -> None:
         self._connection = sqlite3.connect(db_name)
@@ -16,7 +16,7 @@ class ActorManager:
         cursor.execute(
             f"INSERT INTO {self.table_name} "
             f"(first_name, last_name) VALUES (?, ?)",
-                        (first_name, last_name,)
+            (first_name, last_name,)
         )
         self._connection.commit()
 
