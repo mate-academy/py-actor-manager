@@ -12,7 +12,7 @@ class ActorManager:
         curs = self._connection.execute(
             f"select * from {self.table_name}"
         )
-        return [Actor(*row) for row in curs]
+        return [Actor(*row) for row in curs] if curs else []
 
     def create(self, first_name: str, last_name: str) -> None:
         self._connection.execute(
