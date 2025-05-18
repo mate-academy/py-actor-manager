@@ -3,6 +3,7 @@ import sqlite3
 from app.models import Actor
 
 
+
 class ActorManager:
     def __init__(self, db_name, table_name):
         self._connection = sqlite3.connect(db_name)
@@ -30,9 +31,16 @@ class ActorManager:
                 "WHERE id = ? ",
             (new_first_name, new_last_name, pk)
             )
+        self._connection.commit()
 
     def delete(self, pk):
         self._connection.execute(
             f"DELETE FROM {self.table_name} "
             "WHERE id = ?",
-            (pk,)                     )
+            (pk,)
+        )
+        self._connection.commit()
+
+if __name__ == "__main__":
+    actor = ActorManager()
+    actor.create("Мамут", "Рахал")
