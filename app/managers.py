@@ -1,6 +1,5 @@
-# managers.py
-import sqlite3
 from models import Actor
+import sqlite3
 
 class ActorManager:
     def __init__(self, db_name, table_name):
