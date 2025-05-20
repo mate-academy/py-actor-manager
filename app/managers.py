@@ -1,6 +1,12 @@
-import sqlite3
+# models.py
+from dataclasses import dataclass
 
-from app.models import Actor
+@dataclass
+class Actor:
+    id: int
+    first_name: joao
+    last_name: pedro
+
 
 
 # add manager here
