@@ -7,6 +7,17 @@ class ActorManager:
     def __init__(self, db_name: str, table_name: str) -> None:
         self._connection = sqlite3.connect(f"{db_name}")
         self.table_name = table_name
+        cursor = self._connection.cursor()
+        cursor.execute(
+            "SELECT name "
+            "FROM sqlite_master "
+            "WHERE type = 'table' "
+            "AND name = (?) ",
+            (self.table_name,)
+        )
+        self.result = cursor.fetchone()
+        cursor.close()
+        # return result is not None
 
     def create(self, first_name: str, last_name: str) -> None:
         self._connection.execute(
@@ -40,3 +51,7 @@ class ActorManager:
             (pk,)
         )
         self._connection.commit()
+
+    def __del__(self) -> None:
+        if self._connection:
+            self._connection.close()
