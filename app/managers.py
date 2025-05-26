@@ -10,7 +10,7 @@ class ActorManager:
 
     def create(self, first_name: str, last_name: str) -> None:
         self.connector.execute(
-            f"INSERT INTO {self.table} (first_name, last_name) "
+            f"INSERT INTO actors (first_name, last_name) "
             "VALUES (?, ?) ",
             (first_name, last_name)
         )
@@ -18,7 +18,7 @@ class ActorManager:
 
     def all(self) -> list[Actor]:
         cursor = self.connector.execute(
-            f"SELECT * FROM {self.table}"
+            f"SELECT * FROM actors"
         )
         return list([Actor(*row) for row in cursor])
 
@@ -26,7 +26,7 @@ class ActorManager:
                new_first_name: str,
                new_last_name: str) -> None:
         self.connector.execute(
-            f"UPDATE {self.table} "
+            f"UPDATE actors "
             "SET first_name = ?, last_name = ? "
             "WHERE id = ?",
             (new_first_name, new_last_name, pk)
@@ -35,7 +35,7 @@ class ActorManager:
 
     def delete(self, pk: int) -> None:
         self.connector.execute(
-            f"DELETE FROM {self.table} "
+            f"DELETE FROM actors "
             "WHERE id = ?",
             (pk,)
         )
