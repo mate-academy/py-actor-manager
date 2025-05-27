@@ -1,6 +1,8 @@
-import sqlite3
+from dataclasses import dataclass
 
-from app.models import Actor
+@dataclass
+class Actor:
+    id: int
+    first_name: str
+    last_name: str
 
-
-# add manager here
