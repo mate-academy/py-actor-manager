@@ -33,6 +33,7 @@ class ActorManager:
                 """,
                 (new_first_name, new_last_name, pk)
             )
+            conn.commit()
 
     def delete(self, pk):
         with sqlite3.connect(self.db_name) as conn:
@@ -43,3 +44,4 @@ class ActorManager:
                 """,
                 (pk,)
             )
+            conn.commit()
