@@ -31,6 +31,7 @@ class ActorManager:
             f"DELETE FROM {self.table_name} WHERE id = ? ",
             (pk,)
         )
+        self._connection.commit()
 
     def all(self) -> list:
         cursor = self._connection.execute(
