@@ -12,8 +12,8 @@ class ActorManager:
 
     def create(self, first_name: str, last_name: str) -> Actor:
         self.cur.execute(
-            f'INSERT INTO {self.table_name} '
-            f'(first_name, last_name) VALUES (?, ?)',
+            f"INSERT INTO {self.table_name} "
+            f"(first_name, last_name) VALUES (?, ?)",
             (first_name, last_name)
         )
         self.conn.commit()
@@ -21,7 +21,7 @@ class ActorManager:
         return Actor(id=actor_id, first_name=first_name, last_name=last_name)
 
     def all(self) -> list[Actor]:
-        self.cur.execute(f'SELECT * FROM {self.table_name}')
+        self.cur.execute(f"SELECT * FROM {self.table_name}")
         rows = self.cur.fetchall()
 
         actors = []
@@ -34,13 +34,13 @@ class ActorManager:
     def update(self, pk: int, new_first_name: str,
                new_last_name: str) -> Actor:
         self.cur.execute(
-            f'UPDATE {self.table_name} '
-            f'SET first_name = ?, last_name = ? WHERE id = ?',
+            f"UPDATE {self.table_name} "
+            f"SET first_name = ?, last_name = ? WHERE id = ?",
             (new_first_name, new_last_name, pk)
         )
         self.conn.commit()
         return Actor(id=pk, first_name=new_first_name, last_name=new_last_name)
 
     def delete(self, pk: int) -> None:
-        self.cur.execute(f'DELETE FROM {self.table_name} WHERE id = ?', (pk,))
+        self.cur.execute(f"DELETE FROM {self.table_name} WHERE id = ?", (pk,))
         self.conn.commit()
