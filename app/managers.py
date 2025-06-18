@@ -14,6 +14,7 @@ class ActorManager:
                             f"(first_name, last_name) VALUES (?, ?)",
                             (first_name, last_name)
                             )
+        self.con.commit()
 
     def all(self) -> list:
         self.cursor.execute(f"SELECT * "
@@ -31,9 +32,11 @@ class ActorManager:
                             f"WHERE id = ? ",
                             (new_first_name, new_last_name, pk)
                             )
+        self.con.commit()
 
     def delete(self, pk: int) -> None:
         self.cursor.execute(f"DELETE FROM {self.table_name} "
                             f"WHERE id = ?",
                             (pk,)
                             )
+        self.con.commit()
