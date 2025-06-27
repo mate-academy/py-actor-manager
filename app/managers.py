@@ -4,11 +4,11 @@ from app.models import Actor
 
 
 class ActorManager:
-    def __init__(self, db_name: str, table_name: str):
+    def __init__(self, db_name: str, table_name: str) -> None:
         self.db_name = db_name
         self.table_name = table_name
         self.conn = sqlite3.connect(self.db_name)
-        self.conn.row_factory = sqlite3.Row  # Щоб повертати словники з колонками
+        self.conn.row_factory = sqlite3.Row
         self.cursor = self.conn.cursor()
 
     def create(self, first_name: str, last_name: str) -> None:
@@ -23,7 +23,12 @@ class ActorManager:
         query = f"SELECT * FROM {self.table_name}"
         self.cursor.execute(query)
         rows = self.cursor.fetchall()
-        return [Actor(id=row["id"], first_name=row["first_name"], last_name=row["last_name"]) for row in rows]
+        return [
+            Actor(id=row["id"],
+                  first_name=row["first_name"],
+                  last_name=row["last_name"])
+            for row in rows
+        ]
 
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
         query = f"""
