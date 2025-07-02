@@ -10,7 +10,6 @@ class ActorManager:
         self.connection = sqlite3.connect(self.db_name)
         self.cursor = self.connection.cursor()
 
-
     def create(self, first_name: str, last_name: str) -> Actor:
         self.connection.execute(
             f"INSERT INTO {self.table_name } "
@@ -38,8 +37,7 @@ class ActorManager:
         )
         self.connection.commit()
 
-
-    def delete(self, pk: int):
+    def delete(self, pk: int) -> None:
         self.connection.execute(
             f"DELETE FROM {self.table_name} WHERE id=?",
             (pk, )
