@@ -31,3 +31,11 @@ class ActorManager:
     def delete(self, pk: int) -> None:
         self._connection.execute(f"DELETE FROM {self._table_name} "
                                  f"WHERE id=?", (pk,))
+
+    def __exit__(self, exc_type: Exception,
+                 exc_val: Exception,
+                 exc_tb: Exception) -> None:
+        # Close the connection
+        if self._connection:
+            self._connection.close()
+            self._connection = None
