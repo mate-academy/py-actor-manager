@@ -20,7 +20,7 @@ class ActorManager:
         )
         self._connection.commit()
 
-    def all(self) -> None:
+    def all(self) -> list[Actor]:
         execute = self._connection.execute(
             f"SELECT * FROM {self.table_name}"
         )
@@ -45,4 +45,4 @@ class ActorManager:
             "WHERE id = ?",
             (pk,)
         )
-        self._connection.commit
+        self._connection.commit()
