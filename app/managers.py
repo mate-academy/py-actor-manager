@@ -32,8 +32,8 @@ class ActorManager:
     def update(
             self,
             pk: int,
-            new_first_name:
-            str, new_last_name: str
+            new_first_name: str,
+            new_last_name: str
     ) -> None:
         self._connection.execute(
             f"UPDATE {self.table_name} "
