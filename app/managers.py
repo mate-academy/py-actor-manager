@@ -17,11 +17,11 @@ class ActorManager:
         self.db_name.commit()
 
     def all(self) -> list[Actor]:
-        literary_format = self.cursor.execute(
+        result = self.cursor.execute(
             f"SELECT * FROM {self.table_name}"
         )
         return [
-            Actor(*row) for row in literary_format
+            Actor(*row) for row in result
         ]
 
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
@@ -39,8 +39,3 @@ class ActorManager:
             (pk,)
         )
         self.db_name.commit()
-
-# if __name__ == "__main__":
-#     manager = ActorManager(db_name="cinema.db", table_name="actors")
-#     manager.create(last_name="Morty", first_name="Smit")
-#     print(manager.all())
