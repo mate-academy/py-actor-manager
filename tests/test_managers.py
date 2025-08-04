@@ -1,5 +1,6 @@
 import pytest
 import sqlite3
+from pathlib import Path
 
 from app.managers import ActorManager
 from app.models import Actor
@@ -10,21 +11,20 @@ TABLE_NAME = "actors"
 
 
 @pytest.fixture()
-def test_db(tmp_path):
+def test_db(tmp_path: Path) -> str:
     """
     Create a temporary SQLite database file
     """
     db_file = tmp_path / DB_NAME
     conn = sqlite3.connect(str(db_file))
-    conn.execute(
-        f"""
-        CREATE TABLE {TABLE_NAME} (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            first_name TEXT NOT NULL,
-            last_name TEXT NOT NULL
-        )
-        """
+    query = (
+        f"CREATE TABLE {TABLE_NAME} ("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "first_name TEXT NOT NULL, "
+        "last_name TEXT NOT NULL"
+        ")"
     )
+    conn.execute(query)
     conn.commit()
     conn.close()
 
@@ -32,11 +32,11 @@ def test_db(tmp_path):
 
 
 @pytest.fixture()
-def manager(test_db):
+def manager(test_db: str) -> ActorManager:
     return ActorManager(db_name=test_db, table_name=TABLE_NAME)
 
 
-def test_create(manager):
+def test_create(manager: ActorManager) -> None:
     manager.create(first_name="Brad", last_name="Pitt")
     actors = manager.all()
     assert len(actors) == 1
@@ -46,13 +46,13 @@ def test_create(manager):
     assert actors[0].id == 1
 
 
-def test_all_empty(manager):
+def test_all_empty(manager: ActorManager) -> None:
     actors = manager.all()
     assert len(actors) == 0
     assert isinstance(actors, list)
 
 
-def test_all_multiple_actors(manager):
+def test_all_multiple_actors(manager: ActorManager) -> None:
     test_actors = [
         ("Brad", "Pitt"),
         ("Leonardo", "DiCaprio"),
@@ -74,7 +74,7 @@ def test_all_multiple_actors(manager):
         assert actor.last_name == last_name
 
 
-def test_update(manager):
+def test_update(manager: ActorManager) -> None:
     manager.create(first_name="Brad", last_name="Pitt")
     manager.update(pk=1, new_first_name="Bradley", new_last_name="Pitt")
 
@@ -84,7 +84,7 @@ def test_update(manager):
     assert actors[0].last_name == "Pitt"
 
 
-def test_delete(manager):
+def test_delete(manager: ActorManager) -> None:
     manager.create(first_name="Brad", last_name="Pitt")
     manager.create(first_name="Leonardo", last_name="DiCaprio")
 
