@@ -9,7 +9,7 @@ class ActorManager:
         self.table_name = table_name
         self._connection = sqlite3.connect(db_name)
 
-    def __del__(self) -> None:
+    def close(self) -> None:
         self._connection.close()
 
     def all(self) -> list[Actor]:
