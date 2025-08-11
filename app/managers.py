@@ -11,8 +11,8 @@ class ActorManager:
         self.conn.row_factory = sqlite3.Row
 
     def create(self, first_name: str, last_name: str) -> int:
-        query = \
-            f"INSERT INTO {self.table_name} (first_name, last_name) VALUES (?,?)"
+        query = (f"INSERT INTO {self.table_name} "
+                 f"(first_name, last_name) VALUES (?,?)")
         cursor = self.conn.execute(query, (first_name, last_name))
         self.conn.commit()
         return cursor.lastrowid
