@@ -3,14 +3,14 @@ from app.models import Actor
 
 
 class ActorManager:
-    def __init__(self, db_name: str, table_name: str):
+    def __init__(self, db_name: str, table_name: str) -> None:
         self.db_name = db_name
         self.table_name = table_name
         self.conn = sqlite3.connect(self.db_name)
         self.cursor = self.conn.cursor()
         self.create_table()
 
-    def create_table(self):
+    def create_table(self) -> None:
         self.cursor.execute(f"""
         CREATE TABLE IF NOT EXISTS {self.table_name}
          (id INTEGER PRIMARY KEY AUTOINCREMENT,
