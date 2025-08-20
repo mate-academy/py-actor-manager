@@ -1,4 +1,8 @@
 from dataclasses import dataclass
+from typing import Optional
 
-
-# add dataclass here
+@dataclass
+class Actor:
+    id: Optional[int] = None
+    first_name: str = ""
+    last_name: str = ""
