@@ -1,6 +1,43 @@
-import sqlite3
+# app/managers.py
 
+import sqlite3
 from app.models import Actor
 
 
-# add manager here
+class ActorManager:
+    def __init__(self, db_name: str = "actors.db", table_name: str = "actors") -> None:
+        self.db_name = db_name
+        self.table_name = table_name
+        self.conn = sqlite3.connect(self.db_name)
+        self.conn.row_factory = sqlite3.Row  # rekordy jak słowniki
+
+        # Tworzymy tabelę, jeśli nie istnieje
+        self.conn.execute(
+            f"""CREATE TABLE IF NOT EXISTS {self.table_name} (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                first_name TEXT NOT NULL,
+                last_name TEXT NOT NULL
+            )"""
+        )
+        self.conn.commit()
+
+    def close(self) -> None:
+        self.conn.close()
+
+    # --- CREATE ---
+    def create(self, first_name: str, last_name: str) -> Actor:
+        cur = self.conn.execute(
+            f"INSERT INTO {self.table_name} (first_name, last_name) VALUES (?, ?)",
+            (first_name, last_name),
+        )
+        self.conn.commit()
+        new_id = cur.lastrowid
+        return Actor(id=new_id, first_name=first_name, last_name=last_name)
+
+    # --- ALL ---
+    def all(self) -> list[Actor]:
+        cur = self.conn.execute(
+            f"SELECT id, first_name, last_name FROM {self.table_name} ORDER BY id"
+        )
+        rows = cur.fetchall()
+        retu
