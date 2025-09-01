@@ -13,11 +13,11 @@ class ActorManager:
 
     def _create_table_if_not_exists(self) -> None:
         self.cursor.execute(f"""
-        CREATE TABLE IF NOT EXISTS {self.table_name} (
+        CREATE TABLE IF NOT EXISTS {self.table_name}(
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
-        first_name TEXT not null, 
-        last_name TEXT not null) """)
-
+        first_name TEXT NOT NULL, 
+        last_name TEXT NOT NULL)
+    """)
         self.conn.commit()
 
     def create(self, first_name: str, last_name: str) -> Actor:
