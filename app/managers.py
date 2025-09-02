@@ -11,7 +11,8 @@ class ActorManager:
         self.cursor = self.conn.cursor()
 
     def create(self, first_name: str, last_name: str) -> None:
-        self.cursor.execute(f"INSERT INTO {self.table_name} (first_name, last_name) VALUES (?, ?)",
+        self.cursor.execute(f"INSERT INTO {self.table_name} "
+                            f"(first_name, last_name) VALUES (?, ?)",
                             (first_name, last_name))
         self.conn.commit()
 
@@ -20,9 +21,11 @@ class ActorManager:
         return [Actor(*row) for row in self.cursor]
 
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
-        self.conn.execute(f"UPDATE {self.table_name} SET first_name=?, last_name=? WHERE id=?",
+        self.conn.execute(f"UPDATE {self.table_name} "
+                          f"SET first_name=?, last_name=? WHERE id=?",
                           (new_first_name, new_last_name, pk))
         self.conn.commit()
+
     def delete(self, pk: int) -> None:
         self.conn.execute(f"DELETE FROM {self.table_name} WHERE id=?", (pk,))
         self.conn.commit()
