@@ -21,7 +21,7 @@ class ActorManager:
         db_cursor = self._connection.execute(
             f"SELECT * FROM {self.table_name}"
         )
-        if not db_cursor.rowcount:
+        if not db_cursor:
             return []
         return [Actor(*row) for row in db_cursor]
 
