@@ -7,13 +7,11 @@ class ActorManager:
     def __init__(self, db_name: str, table_name: str = "actors") -> None:
         self.db_name = db_name
         self.table_name = table_name
-
-    def _connect(self) -> sqlite3.Connection:
-        return sqlite3.connect(self.db_name)
+        self.conn = sqlite3.connect(self.db_name)
 
     # CREATE
     def create(self, first_name: str, last_name: str) -> Actor:
-        with self._connect() as conn:
+        with self.conn as conn:
             cur = conn.cursor()
             cur.execute(
                 f"INSERT INTO {self.table_name}"
@@ -27,7 +25,7 @@ class ActorManager:
 
     # READ ALL
     def all(self) -> list[Actor]:
-        with self._connect() as conn:
+        with self.conn as conn:
             cur = conn.cursor()
             cur.execute(
                 f"SELECT id, first_name, last_name FROM {self.table_name}"
@@ -41,7 +39,7 @@ class ActorManager:
 
     # UPDATE
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
-        with self._connect() as conn:
+        with self.conn as conn:
             conn.execute(
                 f"UPDATE {self.table_name} SET first_name=?, "
                 "last_name=? "
@@ -52,7 +50,7 @@ class ActorManager:
 
     # DELETE
     def delete(self, pk: int) -> None:
-        with self._connect() as conn:
+        with self.conn as conn:
             conn.execute(
                 f"DELETE FROM {self.table_name} WHERE id=?",
                 (pk,),
