@@ -15,13 +15,13 @@ class ActorManager:
         )
         self._connection.commit()
 
-    def all(self) -> None:
-        self_format_cursor = self._connection.execute(
+    def all(self) -> List[Actor]:
+        cursor = self._connection.execute(
             f"SELECT * FROM {self.table_name}"
         )
 
         return [
-            Actor(*row) for row in self_format_cursor
+            Actor(*row) for row in cursor
         ]
 
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
