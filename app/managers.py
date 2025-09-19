@@ -10,12 +10,12 @@ class ActorManager:
 
     def create(self, first_name: str, last_name: str) -> None:
         self._connection.execute(
-            f"INSERT INTO {self.table_name} (format) VALUES (?)",
+            f"INSERT INTO {self.table_name} (first_name, last_name) VALUES (?, ?)",
             (first_name, last_name)
         )
         self._connection.commit()
 
-    def retrieve(self) -> None:
+    def all(self) -> None:
         self_format_cursor = self._connection.execute(
             f"SELECT * FROM {self.table_name}"
         )
@@ -27,9 +27,9 @@ class ActorManager:
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
         self._connection.execute(
             f"UPDATE {self.table_name} "
-            "SET format = ?"
+            "SET first_name = ?, last_name = ?"
             " WHERE id = ?",
-            (pk, new_first_name, new_last_name)
+            (new_first_name, new_last_name, pk)
         )
         self._connection.commit()
 
