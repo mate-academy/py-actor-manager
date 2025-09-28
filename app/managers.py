@@ -38,3 +38,4 @@ class ActorManager:
             f"DELETE FROM {self.table_name} WHERE id = ?",
             (pk,)
         )
+        self.db_name.commit()
