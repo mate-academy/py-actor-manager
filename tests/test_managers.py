@@ -17,10 +17,9 @@ def test_db(tmp_path):
     db_file = tmp_path / DB_NAME
     conn = sqlite3.connect(str(db_file))
     conn.execute(
-        f"""
-        CREATE TABLE {TABLE_NAME} (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            first_name TEXT NOT NULL,
+        f"""CREATE TABLE {TABLE_NAME} (
+            id INTEGER PRIMARY KEY AUTOINCREMENT, 
+            first_name TEXT NOT NULL, 
             last_name TEXT NOT NULL
         )
         """
