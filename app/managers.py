@@ -10,7 +10,7 @@ class ActorManager:
         self.cur = self.con.cursor()
 
         self.cur.execute(f'CREATE TABLE IF NOT EXISTS {self.table_name}'
-                         f'(INTEGER PRIMARY KEY, first_name, last_name)')
+                         f'(id INTEGER PRIMARY KEY, first_name TEXT, last_name TEXT)')
 
     def create(self, first_name: str, last_name: str) -> None:
         self.cur.execute(f'INSERT INTO {self.table_name}'
