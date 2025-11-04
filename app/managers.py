@@ -11,7 +11,7 @@ class ActorManager:
         self.connection = sqlite3.connect(self.db_name)
 
     """create method that creates a new entry in table"""
-    def create(self, first_name: str, last_name: str) -> Actor:
+    def create(self, first_name: str, last_name: str) -> None:
         self.connection.execute(
             f"INSERT INTO {self.table_name} "
             f"(first_name, last_name) VALUES (?, ?)",
@@ -33,7 +33,7 @@ class ActorManager:
                pk: int,
                new_first_name: str,
                new_last_name: str
-               ) -> Actor:
+               ) -> None:
         self.connection.execute(
             f"UPDATE {self.table_name} "
             "SET first_name = ?, last_name = ? "
