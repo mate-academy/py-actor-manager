@@ -10,16 +10,18 @@ class ActorManager:
         self.table_name = table_name
         self.connection = sqlite3.connect(self.db_name)
 
-    """create method that creates a new entry in table"""
-    def create(self, first_name: str, last_name: str) -> None:
-        self.connection.execute(
+    def create(self, first_name: str, last_name: str) -> Actor:
+        cursor = self.connection.cursor()
+        cursor.execute(
             f"INSERT INTO {self.table_name} "
             f"(first_name, last_name) VALUES (?, ?)",
             (first_name, last_name)
         )
         self.connection.commit()
+        actor_id = cursor.lastrowid
 
-    """create method that returns a list of Actor"""
+        return Actor(id=actor_id, first_name=first_name, last_name=last_name)
+
     def all(self) -> List[Actor]:
         actor_cursor = self.connection.execute(
             f"SELECT * FROM {self.table_name}"
@@ -28,12 +30,11 @@ class ActorManager:
             Actor(*row) for row in actor_cursor
         ]
 
-    """create method that updates properties"""
     def update(self,
                pk: int,
                new_first_name: str,
                new_last_name: str
-               ) -> None:
+               ) -> Actor:
         self.connection.execute(
             f"UPDATE {self.table_name} "
             "SET first_name = ?, last_name = ? "
@@ -41,8 +42,16 @@ class ActorManager:
             (new_first_name, new_last_name, pk)
         )
         self.connection.commit()
+        cursor = self.connection.execute(
+            "SELECT id, first_name, last_name "
+            f"FROM {self.table_name} WHERE id = ?",
+            (pk,))
+        row = cursor.fetchone()
+        if row is None:
+            return None
 
-        """create method that deletes entry"""
+        return Actor(*row)
+
     def delete(self, pk: int) -> None:
         self.connection.execute(
             f"DELETE FROM {self.table_name} WHERE id = ?",
