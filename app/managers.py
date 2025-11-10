@@ -1,6 +1,6 @@
 import sqlite3
 from typing import List
-from models import Actor
+from app.models import Actor
 
 
 class ActorManager:
@@ -14,21 +14,28 @@ class ActorManager:
     def create(self, first_name: str, last_name: str) -> None:
         cur = self.db_name.cursor()
         cur.execute(f"INSERT INTO {self.table_name} "
-                    f"({first_name} {last_name})")
+                    f"(first_name, last_name)"
+                    f"VALUES (?, ?)",
+                    (first_name, last_name),
+                    )
         self.db_name.commit()
 
     def all(self) -> List[Actor]:
-        all_content = self.db_name.execute(f"SELECT * FROM"
-                                           f" {self.table_name}").fetchall()
+        all_content = self.db_name.execute(f"SELECT * FROM "
+                                           f" {self.table_name}")
         return [Actor(*raw) for raw in all_content]
 
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
         cur = self.db_name.cursor()
-        cur.execute(f"UPDATE {self.table_name} SET"
-                    f" {new_first_name} {new_last_name} WHERE {pk}")
+        cur.execute(f"UPDATE {self.table_name} "
+                    f"SET first_name = ? , last_name = ? "
+                    f"  WHERE id = ?",
+                    (new_first_name,new_last_name, pk),
+                    )
         self.db_name.commit()
 
     def delete(self, pk: int) -> None:
         cur = self.db_name.cursor()
-        cur.execute(f"DELETE FROM {self.table_name} WHERE {pk}")
-        cur.close()
+        cur.execute(f"DELETE FROM {self.table_name} WHERE id = ?",
+                    (pk,))
+        self.db_name.commit()
