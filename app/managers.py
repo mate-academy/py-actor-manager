@@ -3,7 +3,7 @@ import sqlite3
 from app.models import Actor
 
 
-class ActorManager(Actor):
+class ActorManager():
 
     def __init__(self, db_name: str, table_name: str) -> None:
         self._connection = sqlite3.connect(db_name)
@@ -13,7 +13,7 @@ class ActorManager(Actor):
         self._connection.execute(f"INSERT "
                                  f"INTO {self.table_name} "
                                  f"(first_name, last_name) "
-                                 f"VALUES ('{first_name}', '{last_name}')")
+                                 f"VALUES (?, ?)", (first_name, last_name))
         self._connection.commit()
 
     def all(self) -> list:
@@ -26,15 +26,14 @@ class ActorManager(Actor):
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
         self._connection.execute(
             f"UPDATE {self.table_name} "
-            f"SET first_name = ? "
-            f"WHERE id = ?", (new_first_name, pk))
-        self._connection.execute(f"UPDATE {self.table_name} "
-                                 f"SET last_name = ? "
-                                 f"WHERE id = ?", (new_last_name, pk))
+            f"SET first_name = ?, last_name = ? "
+            f"WHERE id = ?", (new_first_name, new_last_name, pk))
+
         self._connection.commit()
 
     def delete(self, pk: int) -> None:
         self._connection.execute(f"DELETE "
                                  f"FROM {self.table_name} "
-                                 f"WHERE id = {pk}")
+                                 f"WHERE id = ?", (pk,))
+
         self._connection.commit()
