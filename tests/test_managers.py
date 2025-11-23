@@ -76,7 +76,7 @@ def test_all_multiple_actors(manager):
 
 def test_update(manager):
     manager.create(first_name="Brad", last_name="Pitt")
-    manager.update(pk=1, new_first_name="Bradley", new_last_name="Pitt")
+    manager.update(id=1, new_first_name="Bradley", new_last_name="Pitt")
 
     actors = manager.all()
     assert len(actors) == 1
