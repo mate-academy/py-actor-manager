@@ -33,5 +33,5 @@ class ActorManager:
             (pk,)
         )
 
-    def __del__(self) -> None:
+    def close(self) -> None:
         self.connection.close()
