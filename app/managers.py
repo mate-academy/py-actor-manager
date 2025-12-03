@@ -21,8 +21,6 @@ class ActorManager:
         self.conn.execute(query)
         self.conn.commit()
 
-    # ----------------- CRUD -----------------
-
     def create(self, first_name: str, last_name: str) -> Actor:
         """Insert a new actor and return its instance."""
         query = (
@@ -32,7 +30,6 @@ class ActorManager:
         cursor = self.conn.cursor()
         cursor.execute(query, (first_name, last_name))
         self.conn.commit()
-
         new_id = cursor.lastrowid
         return Actor(id=new_id, first_name=first_name, last_name=last_name)
 
