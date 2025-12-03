@@ -47,4 +47,14 @@ class ActorManager:
         except sqlite3.Error as e:
             print(f'Error {e} occured')
 
-    
+    def delete(self, actor_id):
+
+        sql = 'DELETE FROM actors \
+                WHERE id = ?'
+        val = (actor_id)
+
+        try:
+            self.cur.execute(sql, val)
+            self.connection.commit()
+        except sqlite3.Error as e:
+            print(f'Error {e} occured')
