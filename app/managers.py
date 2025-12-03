@@ -23,3 +23,28 @@ class ActorManager:
 
         except sqlite3.Error as e:
             print(f'Error {e} occured')
+
+    def all(self):
+
+        records = self.cur.execute('SELECT * FROM actors')
+        actors = []
+
+        for actor in records:
+            actors.append(Actor(actor[0], actor[1], actor[2]))
+
+        return actors
+
+    def update(self, actor_id, first_name, last_name):
+
+        sql = 'UPDATE actors SET \
+                first_name = ?, last_name = ?\
+                WHERE id = ?'
+        val = (first_name, last_name, actor_id)
+
+        try:
+            self.cur.execute(sql, val)
+            self.connection.commit()
+        except sqlite3.Error as e:
+            print(f'Error {e} occured')
+
+    
