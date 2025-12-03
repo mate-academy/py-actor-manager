@@ -51,7 +51,7 @@ class ActorManager:
 
         sql = 'DELETE FROM actors \
                 WHERE id = ?'
-        val = (actor_id)
+        val = (actor_id,)
 
         try:
             self.cur.execute(sql, val)
