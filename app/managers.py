@@ -1,6 +1,4 @@
 import sqlite3
-from logging import setLogRecordFactory
-from threading import settrace_all_threads
 
 from app.models import Actor
 
