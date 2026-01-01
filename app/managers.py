@@ -13,17 +13,18 @@ class ActorManager:
     def create(self, first_name: str, last_name: str) -> None:
         cursor = self.conn.cursor()
         cursor.execute(
-            "INSERT INTO actors (first_name, last_name) VALUES (?, ?)",
+            f"INSERT INTO {self.table_name} (first_name, last_name) "
+            f"VALUES (?, ?)",
             (first_name, last_name)
         )
         self.conn.commit()
 
     def all(self) -> list:
         cursor = self.conn.cursor()
-        cursor.execute("SELECT id, first_name, last_name FROM actors")
+        cursor.execute(f"SELECT id, first_name, last_name "
+                       f"FROM {self.table_name}")
         rows = cursor.fetchall()  # returns a list of tuples
 
-        # convert rows to Actor instances
         actors = [Actor(id=row[0],
                         first_name=row[1],
                         last_name=row[2]) for row in rows]
@@ -33,7 +34,8 @@ class ActorManager:
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
         cursor = self.conn.cursor()
         cursor.execute(
-            "UPDATE actors SET first_name = ?, last_name = ? WHERE id = ?",
+            f"UPDATE {self.table_name} "
+            f"SET first_name = ?, last_name = ? WHERE id = ?",
             (new_first_name, new_last_name, pk)
         )
         self.conn.commit()
@@ -41,7 +43,7 @@ class ActorManager:
     def delete(self, pk: int) -> None:
         cursor = self.conn.cursor()
         cursor.execute(
-            "DELETE FROM actors WHERE id = ?",
+            f"DELETE FROM {self.table_name} WHERE id = ?",
             (pk,)
         )
         self.conn.commit()
