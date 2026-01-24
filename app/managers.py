@@ -44,3 +44,4 @@ class ActorManager:
             f"DELETE FROM {self.table} WHERE ID = ?",
             (pk, )
         )
+        self._conection.commit()
