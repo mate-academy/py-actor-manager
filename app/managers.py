@@ -11,7 +11,7 @@ class ActorManager:
         self.cursor = self.connection.cursor()
         query = f"""
         CREATE TABLE IF NOT EXISTS {self.table_name} (
-        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
 first_name TEXT NOT NULL, last_name TEXT NOT NULL) """
         self.cursor.execute(query)
         self.connection.commit()
@@ -47,7 +47,7 @@ first_name TEXT NOT NULL, last_name TEXT NOT NULL) """
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
         self.cursor.execute(
             f"""
-            UPDATE {self.table_name} 
+            UPDATE {self.table_name}
             SET first_name = ?, last_name = ?
             WHERE id = ?
             """,
@@ -57,7 +57,7 @@ first_name TEXT NOT NULL, last_name TEXT NOT NULL) """
     def delete(self, pk: int) -> None:
         self.cursor.execute(
             f"""
-            DELETE FROM {self.table_name} 
+            DELETE FROM {self.table_name}
             WHERE id = ?
             """,
             (pk,)
