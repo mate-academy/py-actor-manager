@@ -1,7 +1,7 @@
 import sqlite3
 from typing import List
 
-from models import Actor
+from app.models import Actor
 
 
 class ActorManager:
@@ -29,6 +29,7 @@ class ActorManager:
         )
         cursor = self.connection.execute(query, (first_name, last_name))
         self.connection.commit()
+
         return Actor(
             id=cursor.lastrowid,
             first_name=first_name,
@@ -37,11 +38,12 @@ class ActorManager:
 
     def all(self) -> List[Actor]:
         query = (
-            f"SELECT id, first_name, last_name "
+            "SELECT id, first_name, last_name "
             f"FROM {self.table_name} ORDER BY id;"
         )
         cursor = self.connection.execute(query)
         rows = cursor.fetchall()
+
         return [
             Actor(
                 id=row["id"],
