@@ -26,14 +26,12 @@ class ActorManager:
         query = f"INSERT INTO {self.table_name} (first_name, last_name) VALUES (?, ?);"
         cursor = self.connection.execute(query, (first_name, last_name))
         self.connection.commit()
-
         return Actor(id=cursor.lastrowid, first_name=first_name, last_name=last_name)
 
     def all(self) -> List[Actor]:
         query = f"SELECT id, first_name, last_name FROM {self.table_name} ORDER BY id;"
         cursor = self.connection.execute(query)
         rows = cursor.fetchall()
-
         return [
             Actor(id=row["id"], first_name=row["first_name"], last_name=row["last_name"])
             for row in rows
