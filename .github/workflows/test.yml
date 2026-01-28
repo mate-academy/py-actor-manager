@@ -26,3 +26,6 @@ jobs:
 
       - name: Run flake8
         run: flake8 app/
+
+      - name: Run tests
+        run: pytest tests/
