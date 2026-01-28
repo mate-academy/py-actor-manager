@@ -23,27 +23,44 @@ class ActorManager:
         self.connection.commit()
 
     def create(self, first_name: str, last_name: str) -> Actor:
-        query = f"INSERT INTO {self.table_name} (first_name, last_name) VALUES (?, ?);"
+        query = (
+            f"INSERT INTO {self.table_name} "
+            "(first_name, last_name) VALUES (?, ?);"
+        )
         cursor = self.connection.execute(query, (first_name, last_name))
         self.connection.commit()
-        return Actor(id=cursor.lastrowid, first_name=first_name, last_name=last_name)
+        return Actor(
+            id=cursor.lastrowid,
+            first_name=first_name,
+            last_name=last_name,
+        )
 
     def all(self) -> List[Actor]:
-        query = f"SELECT id, first_name, last_name FROM {self.table_name} ORDER BY id;"
+        query = (
+            f"SELECT id, first_name, last_name "
+            f"FROM {self.table_name} ORDER BY id;"
+        )
         cursor = self.connection.execute(query)
         rows = cursor.fetchall()
         return [
-            Actor(id=row["id"], first_name=row["first_name"], last_name=row["last_name"])
+            Actor(
+                id=row["id"],
+                first_name=row["first_name"],
+                last_name=row["last_name"],
+            )
             for row in rows
         ]
 
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
-        query = f"""
-        UPDATE {self.table_name}
-        SET first_name = ?, last_name = ?
-        WHERE id = ?;
-        """
-        self.connection.execute(query, (new_first_name, new_last_name, pk))
+        query = (
+            f"UPDATE {self.table_name} "
+            "SET first_name = ?, last_name = ? "
+            "WHERE id = ?;"
+        )
+        self.connection.execute(
+            query,
+            (new_first_name, new_last_name, pk),
+        )
         self.connection.commit()
 
     def delete(self, pk: int) -> None:
