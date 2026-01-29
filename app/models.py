@@ -1,4 +1,8 @@
 from dataclasses import dataclass
 
 
-# add dataclass here
+@dataclass(frozen=True)
+class Actor:
+    id: int
+    first_name: str
+    last_name: str
