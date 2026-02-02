@@ -32,5 +32,27 @@ class ActorManager:
 
         return self.cursor.lastrowid
 
+    def all(self) -> list[Actor]:
+        self.cursor.execute(f"""
+        SELECT id, first_name, last_name FROM {self.table_name}
+        """
+                            )
+        rows = self.cursor.fetchall()
+        return [Actor(row[0], row[1], row[2]) for row in rows]
 
 
+    def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
+        self.cursor.execute(f"""
+        UPDATE {self.table_name} SET first_name=?, last_name=? WHERE id=?
+        """,
+        (new_first_name, new_last_name, pk)
+        )
+        self.conn.commit()
+
+    def delete(self, pk: int) -> None:
+        self.cursor.execute(f"""
+        DELETE FROM {self.table_name} WHERE id=?
+        """,
+        (pk,)
+        )
+        self.conn.commit()
