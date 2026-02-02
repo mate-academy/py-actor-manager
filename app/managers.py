@@ -3,4 +3,6 @@ import sqlite3
 from app.models import Actor
 
 
-# add manager here
+class ActorManager:
+    def __init__(self, db_name: str, table_name: str) -> None:
+        self.db = sqlite3.connect(db_file)
