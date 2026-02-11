@@ -43,9 +43,3 @@ class ActorManager:
         return [
             Actor(*row) for row in actor_cursor
         ]
-
-
-
-
-
-
