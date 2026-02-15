@@ -1,4 +1,8 @@
 from dataclasses import dataclass
 
 
-# add dataclass here
+@dataclass
+class Actor:
+  age: int
+  first_name: srt
+  last_name: str
