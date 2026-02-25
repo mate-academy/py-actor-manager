@@ -17,7 +17,7 @@ class ActorManager:
             (first_name, last_name)
          )
 
-    def all(self):
+    def all(self) -> list[Actor]:
         cursor = self._connection.execute(
             f"SELECT * FROM {self.table_name}"
         )
