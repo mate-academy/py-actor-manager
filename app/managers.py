@@ -33,3 +33,8 @@ class ActorManager:
             (new_first_name, new_last_name, pk)
         )
 
+    def delete(self, pk: int) -> None:
+        self._connection.execute(
+            f"DELETE FROM {self.table_name} WHERE id = ? ",
+            (pk,)
+        )
