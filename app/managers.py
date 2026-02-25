@@ -17,3 +17,11 @@ class ActorManager:
             (first_name, last_name)
          )
 
+    def all(self):
+        cursor = self._connection.execute(
+            f"SELECT * FROM {self.table_name}"
+        )
+        return [
+            Actor(*row) for row in cursor
+        ]
+
