@@ -10,12 +10,12 @@ class ActorManager:
         self.table_name = table_name
         self._connection = sqlite3.connect(db_name)
 
-
     def create(self, first_name: str, last_name: str) -> None:
         self._connection.execute(
-            f"INSERT INTO {self.table_name} (first_name, last_name) VALUES (?, ?)",
+            f"INSERT INTO {self.table_name} "
+            "(first_name, last_name) VALUES (?, ?)",
             (first_name, last_name)
-         )
+        )
         self._connection.commit()
 
     def all(self) -> list[Actor]:
