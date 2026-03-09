@@ -1,6 +1,7 @@
 .idea/
 .vscode/
 *.iml
+*.sqlite
 .env
 .DS_Store
 venv/
