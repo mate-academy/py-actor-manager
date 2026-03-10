@@ -37,7 +37,7 @@ class ActorManager:
             new_last_name: str,
     ) -> None:
         query = f"""
-        UPDATE {self.table_name} 
+        UPDATE {self.table_name}
         SET first_name = ?, last_name = ?
         WHERE id = ?
         """
