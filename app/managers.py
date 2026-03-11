@@ -13,8 +13,7 @@ class ActorManager:
         actor_cursor = self._conn.execute(
             f"SELECT * FROM {self.table_name}"
         )
-        actors = []
-        for actor in actor_cursor:
-            actors.append(Actor(actor))
 
-        return actors
+        return [
+            Actor(*row) for row in actor_cursor
+        ]
