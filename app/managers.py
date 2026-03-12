@@ -9,6 +9,13 @@ class ActorManager:
         self.table_name = table_name
         self._conn = sqlite3.connect(f"{self.db_name}")
 
+    def create(self, first_name: str, last_name: str) -> None:
+        self._conn.execute(
+            f"INSERT INTO {self.table_name} (first_name, last_name) VALUES (?)",
+            (first_name, last_name)
+        )
+        self._conn.commit()
+
     def all(self) -> list[Actor]:
         actor_cursor = self._conn.execute(
             f"SELECT * FROM {self.table_name}"
@@ -17,3 +24,4 @@ class ActorManager:
         return [
             Actor(*row) for row in actor_cursor
         ]
+
