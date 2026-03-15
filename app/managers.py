@@ -4,8 +4,6 @@ from app.models import Actor
 
 
 class ActorManager:
-
-
     def __init__(self, db_name: str, table_name: str) -> None:
         self._connection = sqlite3.connect(db_name)
         self.db_name = db_name
@@ -13,7 +11,8 @@ class ActorManager:
 
     def create(self, first_name: str, last_name: str):
         cursor = self._connection.execute(
-            f"INSERT INTO {self.table_name} (first_name, last_name) VALUES (?, ?)",
+            f"INSERT INTO {self.table_name} (first_name, last_name)"
+            "VALUES (?, ?)",
             (first_name, last_name,))
         self._connection.commit()
         return Actor(cursor.lastrowid, first_name, last_name)
@@ -31,7 +30,6 @@ class ActorManager:
             (new_first_name, new_last_name, pk)
         )
         self._connection.commit()
-
 
     def delete(self, pk: int):
         self._connection.execute(
