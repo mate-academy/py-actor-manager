@@ -94,3 +94,4 @@ def test_delete(manager):
     assert len(actors) == 1
     assert actors[0].first_name == "Leonardo"
     assert actors[0].last_name == "DiCaprio"
+
