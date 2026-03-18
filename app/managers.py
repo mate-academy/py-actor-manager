@@ -55,3 +55,5 @@ class ActorManager:
             f'WHERE id=?',
             (pk,)
         )
+
+        self.connection.commit()
