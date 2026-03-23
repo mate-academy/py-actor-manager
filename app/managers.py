@@ -1,3 +1,9 @@
+import sqlite3
+from typing import List
+
+from app.models import Actor
+
+
 class ActorManager:
     def __init__(self, db_name: str, table_name: str) -> None:
         self.db_name = db_name
