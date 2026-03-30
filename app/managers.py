@@ -1,26 +1,25 @@
 import sqlite3
-
 from app.models import Actor
 
 
-# add manager here
 class ActorManager:
-    def __init__(self, db_name: str, table_name: str):
+    def __init__(self, db_name: str, table_name: str) -> None:
         self.db_name = db_name
         self.table_name = table_name
         self.connection = sqlite3.connect(self.db_name)
 
     def create(self, first_name: str, last_name: str) -> None:
         query = f"INSERT INTO {self.table_name} (first_name, last_name) VALUES (?, ?)"
-        self.connection.execute(query, (first_name, last_name))
-        self.connection.commit()
+        with self.connection:
+            self.connection.execute(query, (first_name, last_name))
 
     def all(self) -> list[Actor]:
         query = f"SELECT id, first_name, last_name FROM {self.table_name}"
-        cursor = self.connection.execute(query)
+        cursor = self.connection.cursor()
+        cursor.execute(query)
         rows = cursor.fetchall()
-        # Створюємо екземпляри Actor для кожного рядка з БД
-        return [Actor(id=row[0], first_name=row[1], last_name=row[2]) for row in rows]
+        # Розпаковуємо кожен кортеж зірочкою прямо в об'єкт Actor
+        return [Actor(*row) for row in rows]
 
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
         query = (
@@ -28,10 +27,10 @@ class ActorManager:
             f"SET first_name = ?, last_name = ? "
             f"WHERE id = ?"
         )
-        self.connection.execute(query, (new_first_name, new_last_name, pk))
-        self.connection.commit()
+        with self.connection:
+            self.connection.execute(query, (new_first_name, new_last_name, pk))
 
     def delete(self, pk: int) -> None:
         query = f"DELETE FROM {self.table_name} WHERE id = ?"
-        self.connection.execute(query, (pk,))
-        self.connection.commit()
+        with self.connection:
+            self.connection.execute(query, (pk,))
