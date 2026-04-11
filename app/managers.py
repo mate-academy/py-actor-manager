@@ -7,7 +7,7 @@ from app.models import Actor
 DBPath: TypeAlias = str | Path
 
 
-class ActorsManager:
+class ActorManager:
     def __init__(self, db_name: DBPath, table_name: str) -> None:
         self._connection = sqlite3.connect(db_name)
 
