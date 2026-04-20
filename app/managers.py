@@ -36,7 +36,7 @@ class ActorManager:
             pk: int,
             new_first_name: str,
             new_last_name: str
-) -> None:
+    ) -> None:
         self._connection.execute(
             f"UPDATE {self.table_name} "
             "SET first_name = ?, last_name = ? "
