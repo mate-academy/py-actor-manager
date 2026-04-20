@@ -10,13 +10,18 @@ class ActorManager:
         self.connection = sqlite3.connect(self.db_name)
         self.cursor = self.connection.cursor()
 
-        self.cursor.execute(f"""
+        self.cursor.execute(
+            f"""
             CREATE TABLE IF NOT EXISTS {self.table_name} (
-                id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT NOT NULL, last_name TEXT NOT NULL)
-        """)
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                first_name TEXT NOT NULL,
+                last_name TEXT NOT NULL
+            )
+            """
+        )
         self.connection.commit()
 
-    def create(self, first_name: str, last_name: str) -> Actor:
+    def create(self, first_name: str, last_name: str) -> None:
         self.cursor.execute(
             f"INSERT INTO {self.table_name} "
             f"(first_name, last_name) VALUES (?, ?)",
@@ -33,7 +38,7 @@ class ActorManager:
                       last_name=row[2]) for row in rows]
 
     def update(self, pk: int, new_first_name: str,
-               new_last_name: str) -> Actor:
+               new_last_name: str) -> None:
         self.cursor.execute(
             f"""
             UPDATE {self.table_name}
@@ -44,7 +49,7 @@ class ActorManager:
         )
         self.connection.commit()
 
-    def delete(self, pk: int) -> Actor:
+    def delete(self, pk: int) -> None:
         self.cursor.execute(
             f"DELETE FROM {self.table_name} WHERE id = ?",
             (pk,)
