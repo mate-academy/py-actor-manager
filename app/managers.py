@@ -11,7 +11,7 @@ class ActorManager:
 
         self.cursor.execute(
             f"CREATE TABLE IF NOT EXISTS {self.table_name} ("
-            f"id INTEGER PRIMARY KEY AUTO_INCREMENT, "
+            f"id INTEGER PRIMARY KEY AUTOINCREMENT, "
             f"first_name TEXT, last_name TEXT)"
         )
 
