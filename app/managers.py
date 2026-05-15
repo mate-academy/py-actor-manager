@@ -43,8 +43,8 @@ class ActorManager:
     ) -> None:
         self.cursor.execute(
             f"UPDATE {self.table_name} "
-            f"SET first_name = {new_first_name}, "
-            f"last_name = {new_last_name} "
+            f"SET first_name = '{new_first_name}', "
+            f"last_name = '{new_last_name}' "
             f"WHERE id = {pk}"
         )
         self.db_conn.commit()
