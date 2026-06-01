@@ -3,21 +3,20 @@ import sqlite3
 from app.models import Actor
 
 
-
 class ActorManager:
     def __init__(self, db_name: str, table_name: str) -> None:
         self._connection = sqlite3.connect(db_name)
         self.table_name = table_name
 
-        self._connection.execute(f"""
-            CREATE TABLE IF NOT EXISTS {self.table_name} (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            first_name TEXT NOT NULL,
-            last_name TEXT NOT NULL
+        self._connection.execute(
+            f"CREATE TABLE IF NOT EXISTS {self.table_name} ("
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+            "first_name TEXT NOT NULL, "
+            "last_name TEXT NOT NULL"
+            ")"
         )
-        """)
 
-    def all(self):
+    def all(self) -> list:
         actors_table_cursor = self._connection.execute(
             f"SELECT * FROM {self.table_name}"
         )
@@ -28,7 +27,8 @@ class ActorManager:
 
     def create(self, first_name: str, last_name: str) -> None:
         self._connection.execute(
-            f"INSERT INTO {self.table_name} (first_name, last_name) VALUES (?, ?)",
+            f"INSERT INTO {self.table_name}"
+            f"(first_name, last_name) VALUES (?, ?)",
             (first_name, last_name)
         )
 
@@ -58,4 +58,3 @@ if __name__ == "__main__":
     actor_manager.update(12, "John", "Snow")
 
     print(actor_manager.all())
-
