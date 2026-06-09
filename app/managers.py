@@ -4,7 +4,7 @@ from app.models import Actor
 
 class ActorManager:
 
-    def __init__(self, db_name: str, table_name: str):
+    def __init__(self, db_name: str, table_name: str) -> None:
         self.db_name = db_name
         self.table_name = table_name
 
@@ -12,7 +12,8 @@ class ActorManager:
         return sqlite3.connect(self.db_name)
 
     def create(self, first_name: str, last_name: str) -> None:
-        query = f"INSERT INTO {self.table_name} (first_name, last_name) VALUES (?, ?)"
+        query = (f"INSERT INTO {self.table_name}"
+                 f" (first_name, last_name) VALUES (?, ?)")
         with self._get_connection() as conn:
             conn.execute(query, (first_name, last_name))
             conn.commit()
@@ -24,15 +25,16 @@ class ActorManager:
             rows = cursor.fetchall()
 
         return [
-            Actor(id=row[0], first_name=row[1], last_name=row[2]) for row in rows
+            Actor(id=row[0], first_name=row[1], last_name=row[2])
+            for row in rows
         ]
 
     def update(
         self, pk: int, new_first_name: str, new_last_name: str
     ) -> None:
         query = f"""
-            UPDATE {self.table_name} 
-            SET first_name = ?, last_name = ? 
+            UPDATE {self.table_name}
+            SET first_name = ?, last_name = ?
             WHERE id = ?
         """
         with self._get_connection() as conn:
