@@ -37,3 +37,4 @@ class ActorManager:
             f"WHERE id = ?",
             (pk,)
         )
+        self._connection.commit()
