@@ -60,10 +60,7 @@ def test_all_multiple_actors(manager):
     ]
 
     for first_name, last_name in test_actors:
-        manager.create(
-            first_name=first_name,
-            last_name=last_name
-        )
+        manager.create(first_name=first_name, last_name=last_name)
 
     actors = manager.all()
     assert len(actors) == 3
