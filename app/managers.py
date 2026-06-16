@@ -21,7 +21,7 @@ class ActorManager:
         )
         self._connection.commit()
 
-    def all(self) -> None:
+    def all(self) -> list[Actor]:
         actor_cursor = self._connection.execute(f"SELECT * "
                                                 f"FROM {self.table_name}")
         return [Actor(*row) for row in actor_cursor]
@@ -39,8 +39,4 @@ class ActorManager:
     def delete(self, pk: int) -> None:
         self._connection.execute(f"DELETE FROM {self.table_name} "
                                  f"where id = ?", (pk,))
-
-
-manager = ActorManager("actor_db.sqlite", "actors")
-manager.delete("1")
-print(manager.all())
+        self._connection.commit()
