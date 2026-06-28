@@ -11,7 +11,11 @@ class ActorManager:
         table_name: str,
     ) -> None:
         self.db_name = db_name
-        self.table_name = table_name
+        self.table_name = (
+            table_name
+            if table_name.endswith("s")
+            else f"{table_name}s"
+        )
         self.connection = sqlite3.connect(db_name)
 
     def create(
