@@ -9,18 +9,18 @@ class ActorManager:
             db_name: str,
             table_name: str
     ) -> None:
-        self.db_name = sqlite3.connect(f"{db_name}.sqlite")
+        self.db_name = sqlite3.connect(db_name)
         self.table_name = table_name
 
     def create(
             self,
-            new_first_name: str,
-            new_last_name: str
+            first_name: str,
+            last_name: str
     ) -> None:
         self.db_name.execute(
             f"INSERT INTO {self.table_name} (first_name, last_name) "
             "VALUES (?, ?)",
-            (new_first_name, new_last_name)
+            (first_name, last_name)
         )
         self.db_name.commit()
 
