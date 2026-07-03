@@ -3,4 +3,38 @@ import sqlite3
 from app.models import Actor
 
 
-# add manager here
+class ActorManager:
+    def __init__(self, db_name: str, table_name: str):
+        self.db_name = sqlite3.connect(f"{db_name}.sqlite")
+        self.table_name = table_name
+
+    def create(self, first_name: str, last_name: str):
+        self.db_name.execute(
+            f"INSERT INTO {self.table_name} (first_name, last_name) VALUES (?, ?)",
+            (first_name, last_name)
+        )
+        self.db_name.commit()
+
+    def all(self):
+        actors_cursor = self.db_name.execute(
+            f"SELECT * FROM {self.table_name}"
+        )
+        return [
+            Actor(*row) for row in actors_cursor
+        ]
+
+    def update(self, pk: int, first_name: str, last_name: str):
+        self.db_name.execute(
+            f"UPDATE {self.table_name} "
+            "SET (first_name, last_name) = (?, ?)"
+            "WHERE id = ?",
+            (pk, first_name, last_name)
+        )
+        self.db_name.commit()
+
+    def delete(self, pk: int):
+        self.db_name.execute(
+            f"DELETE FROM {self.table_name} WHERE id = ?",
+            (pk, )
+        )
+        self.db_name.commit()
