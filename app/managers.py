@@ -17,11 +17,13 @@ class ActorManager:
         ]
 
     def create(self, first_name: str, last_name: str) -> Actor:
-        self._connection.execute(
+        cursor = self._connection.execute(
             f"INSERT INTO {self.table_name} (first_name, last_name) "
             f"VALUES (?, ?)", (first_name, last_name)
         )
         self._connection.commit()
+        new_id = cursor.lastrowid
+        return Actor(new_id, first_name, last_name)
 
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
         self._connection.execute(
