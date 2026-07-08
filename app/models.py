@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 # add dataclass here
 @dataclass
-class Actors:
+class Actor:
     id: int
     first_name: str
     last_name: str

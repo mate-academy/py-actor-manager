@@ -1,6 +1,6 @@
 import sqlite3
 
-from app.models import Actors
+from app.models import Actor
 
 
 # add manager here
@@ -20,11 +20,11 @@ class ActorManager:
         )
         self._conn.commit()
 
-    def all(self) -> list[Actors]:
+    def all(self) -> list[Actor]:
         cursor = self._conn.execute(f"SELECT * FROM {self.table_name}")
 
         return [
-            Actors(*row) for row in cursor
+            Actor(*row) for row in cursor
         ]
 
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
