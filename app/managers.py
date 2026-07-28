@@ -24,12 +24,12 @@ class ActorManager:
             actors.append(Actor(*row))
         return actors
 
-    def update(self, pk: str, new_first_name: str, new_last_name: str) -> str:
+    def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
         self.cursor.execute(f"UPDATE {self.table_name} SET first_name = ?,"
                             f"last_name = ? WHERE id = ?",
                             (new_first_name, new_last_name, pk)
                             )
 
-    def delete(self, pk: str) -> None:
+    def delete(self, pk: int) -> None:
         self.cursor.execute(f"DELETE FROM {self.table_name} WHERE id = ?",
                             (pk,))
