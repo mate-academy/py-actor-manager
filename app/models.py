@@ -1,4 +1,10 @@
 from dataclasses import dataclass
 
 
-# add dataclass here
+@dataclass
+class Actor:
+    """Represent an actor by id, first name, and last name."""
+
+    id: int
+    first_name: str
+    last_name: str
