@@ -8,10 +8,11 @@ class ActorManager:
 
     def __init__(
             self,
-            db_name: sqlite3.Connection,
+            db_name: str,
             table_name: str = "actors") -> None:
         self.db_name = db_name
         self.table_name = table_name
+        self.conn = sqlite3.connect(self.db_name)
 
     def create(
             self,
@@ -19,7 +20,7 @@ class ActorManager:
             last_name: str,
     ) -> Actor:
         """Create a new actor in the database."""
-        with sqlite3.connect(self.db_name) as conn:
+        with self.conn as conn:
             cursor = conn.cursor()
             cursor.execute(
                 f"INSERT INTO {self.table_name} (first_name, last_name) "
@@ -39,7 +40,7 @@ class ActorManager:
         if not self.table_name:
             return []
 
-        with sqlite3.connect(self.db_name) as conn:
+        with self.conn as conn:
             cursor = conn.cursor()
             cursor.execute(
                 f"SELECT id, first_name, last_name FROM {self.table_name}"
@@ -57,7 +58,7 @@ class ActorManager:
             new_last_name: str
     ) -> Actor:
         """Update an existing actor in the database."""
-        with sqlite3.connect(self.db_name) as conn:
+        with self.conn as conn:
             cursor = conn.cursor()
             cursor.execute(
                 f"UPDATE {self.table_name} "
@@ -74,7 +75,7 @@ class ActorManager:
 
     def delete(self, pk: int) -> None:
         """Delete an actor from the database."""
-        with sqlite3.connect(self.db_name) as conn:
+        with self.conn as conn:
             cursor = conn.cursor()
             cursor.execute(
                 f"DELETE FROM {self.table_name} WHERE id = ?", (pk,)
