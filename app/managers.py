@@ -28,9 +28,11 @@ class ActorManager:
             f"UPDATE actor SET first_name=?, last_name=? WHERE pk=?",
             (new_first_name, new_last_name, pk)
         )
+        self._conn.commit()
 
     def delete(self, pk):
         self._conn.execute(
             "DELETE FROM actor WHERE pk=?",
             (pk)
         )
+        self._conn.commit()
