@@ -27,7 +27,8 @@ class ActorManager:
 
     def update(self, pk: str, new_first_name: str, new_last_name: str) -> None:
         self._conn.execute(
-            f"UPDATE {self.table_name} SET first_name=?, last_name=? WHERE pk=?",
+            f"UPDATE {self.table_name} "
+            "SET first_name=?, last_name=? WHERE pk=?",
             (new_first_name, new_last_name, pk)
         )
         self._conn.commit()
