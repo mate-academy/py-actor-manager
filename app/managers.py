@@ -12,7 +12,11 @@ class ActorManager:
         self._cursor = self._conn.cursor()
 
     def create(self, first_name: str, last_name: str) -> None:
-        actor = Actor(id=self.actor_id + 1, first_name=first_name, last_name=last_name)
+        actor = Actor(
+            id=self.actor_id + 1,
+            first_name=first_name,
+            last_name=last_name
+        )
         self._conn.execute(
             f"INSERT INTO {self.table_name} "
             f"(first_name, last_name) VALUES (?, ?)",
