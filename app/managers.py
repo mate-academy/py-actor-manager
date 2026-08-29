@@ -7,20 +7,18 @@ class ActorManager:
     def __init__(self, db_name: str, table_name: str) -> None:
         self.db_name = db_name
         self.table_name = table_name
-        self.actor_id = 0
         self._conn = sqlite3.connect(self.db_name)
         self._cursor = self._conn.cursor()
 
     def create(self, first_name: str, last_name: str) -> None:
         actor = Actor(
-            id=self.actor_id + 1,
             first_name=first_name,
             last_name=last_name
         )
         self._conn.execute(
             f"INSERT INTO {self.table_name} "
-            f"(first_name, last_name) VALUES (?, ?)",
-            (actor.first_name, actor.last_name)
+            f"(id, first_name, last_name) VALUES (?, ?, ?)",
+            (actor.id, actor.first_name, actor.last_name)
         )
         self._conn.commit()
 
