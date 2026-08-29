@@ -26,8 +26,6 @@ class ActorManager:
 
     def all(self) -> list[Actor]:
         self._cursor.execute(f"SELECT * FROM {self.table_name}")
-        if self._cursor.rowcount == 0:
-            return []
         return [Actor(*row) for row in self._cursor]
 
     def update(self, pk: str, new_first_name: str, new_last_name: str) -> None:
