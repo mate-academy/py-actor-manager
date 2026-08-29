@@ -20,21 +20,21 @@ class ActorManager:
         self._conn.commit()
 
     def all(self) -> list[Actor]:
-        self._cursor.execute("SELECT * FROM actor")
+        self._cursor.execute(f"SELECT * FROM {self.table_name}")
         if self._cursor.rowcount == 0:
             return []
         return [Actor(*row) for row in self._cursor]
 
     def update(self, pk: str, new_first_name: str, new_last_name: str) -> None:
         self._conn.execute(
-            "UPDATE actor SET first_name=?, last_name=? WHERE pk=?",
+            f"UPDATE {self.table_name} SET first_name=?, last_name=? WHERE pk=?",
             (new_first_name, new_last_name, pk)
         )
         self._conn.commit()
 
     def delete(self, pk: str) -> None:
         self._conn.execute(
-            "DELETE FROM actor WHERE pk=?",
+            f"DELETE FROM {self.table_name} WHERE pk=?",
             (pk)
         )
         self._conn.commit()
