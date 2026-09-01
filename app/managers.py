@@ -22,12 +22,7 @@ class ActorManager:
         cursor = self._connection.execute(
             f"SELECT * FROM {self.table_name}"
         )
-        result = []
-
-        for row in cursor:
-            result.append(Actor(*row))
-
-        return result
+        return [Actor(*row) for row in cursor]
 
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
         self._connection.execute(
