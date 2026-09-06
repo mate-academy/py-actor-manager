@@ -4,7 +4,6 @@ import sqlite3
 from app.managers import ActorManager
 from app.models import Actor
 
-
 DB_NAME = "cinema.db"
 TABLE_NAME = "actors"
 
@@ -16,15 +15,13 @@ def test_db(tmp_path):
     """
     db_file = tmp_path / DB_NAME
     conn = sqlite3.connect(str(db_file))
-    conn.execute(
-        f"""
+    conn.execute(f"""
         CREATE TABLE {TABLE_NAME} (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             first_name TEXT NOT NULL,
             last_name TEXT NOT NULL
         )
-        """
-    )
+        """)
     conn.commit()
     conn.close()
 
@@ -60,10 +57,7 @@ def test_all_multiple_actors(manager):
     ]
 
     for first_name, last_name in test_actors:
-        manager.create(
-            first_name=first_name,
-            last_name=last_name
-        )
+        manager.create(first_name=first_name, last_name=last_name)
 
     actors = manager.all()
     assert len(actors) == 3
