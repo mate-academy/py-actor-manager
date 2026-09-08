@@ -4,5 +4,5 @@ from dataclasses import dataclass
 @dataclass
 class Actor:
     id: int
-    first_name: int
-    last_name: int
+    first_name: str
+    last_name: str
