@@ -30,7 +30,9 @@ class ActorManager:
             UPDATE {self.table_name} SET first_name = ?, last_name = ?
             WHERE id = ?
             """
-            self.conn.execute(query_update, (new_first_name, new_last_name, pk))
+            self.conn.execute(
+                query_update,
+                (new_first_name, new_last_name, pk))
 
     def delete(self, pk: int) -> None:
         with self.conn:
