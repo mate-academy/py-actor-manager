@@ -18,11 +18,13 @@ class ActorManager:
         self._connection.commit()
 
     def all(self) -> list[Actor]:
-        actor_format_cursor = self._connection.execute(
+        actor_format_cursor = self._connection.cursor()
+        actor_format_cursor.execute(
             f"SELECT * FROM {self.table_name}"
         )
+        rows = actor_format_cursor.fetchall()
         return [
-            Actor(*row) for row in actor_format_cursor
+            Actor(*row) for row in rows
         ]
 
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
