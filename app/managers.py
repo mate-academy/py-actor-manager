@@ -47,9 +47,8 @@ class ActorManager:
             cursor = conn.cursor()
             cursor.execute(query_select)
 
-            rows = cursor.fetchall()
             return [Actor(
                 id=row[0],
                 first_name=row[1],
                 last_name=row[2])
-                for row in rows]
+                for row in cursor.fetchall()]
