@@ -38,7 +38,7 @@ class ActorManager:
         self.cursor.execute(f"SELECT * FROM {self.table_name}")
         rows = self.cursor.fetchall()
         return [
-            Actor(id=self.row[0], title=row[1], author=row[2]) for row in rows
+            Actor(id=row[0], title=row[1], author=row[2]) for row in rows
         ]
 
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
