@@ -32,18 +32,19 @@ class ActorManager:
 
     def all(self) -> list:
         self.cursor.execute(f"SELECT * FROM {self.table_name}")
-        return self.cursor.fetchall()
+        rows = self.cursor.fetchall()
+        return [Actor(id = self.row[0], title = row[1], author = row[2]) for row in rows]
 
-    def update(self, primary_key: int, first_name: str, last_name: str) -> None:
+    def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
         self.cursor.execute(
             f"UPDATE {self.table_name} SET first_name=?, last_name=? WHERE id=?",
-            (first_name, last_name, primary_key)
+            (first_name, last_name, pk)
         )
         self.connection.commit()
 
-    def delete(self, primary_key: int) -> None:
+    def delete(self, pk: int) -> None:
         self.cursor.execute(
             f"DELETE FROM {self.table_name} WHERE id=?",
-            (primary_key,),
+            (pk,),
         )
         self.connection.commit()
