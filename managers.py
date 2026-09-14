@@ -4,9 +4,9 @@ from models import Actor
 
 class ActorManager:
     def __init__(self, db_name, table_name):
-    self.db_name = db_name
-    self.table_name = table_name
-    self.connection = sqlite3.connect(db_name)
+        self.db_name = db_name
+        self.table_name = table_name
+        self.connection = sqlite3.connect(db_name)
     
     cursor = self.connection.cursor()
     cursor.execute(f"""
