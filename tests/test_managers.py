@@ -38,7 +38,7 @@ def manager(test_db):
 
 def test_create(manager):
     manager.create(first_name="Brad", last_name="Pitt")
-    actors = manager.all()
+    actors = manager.all
     assert len(actors) == 1
     assert isinstance(actors[0], Actor)
     assert actors[0].first_name == "Brad"
@@ -47,7 +47,7 @@ def test_create(manager):
 
 
 def test_all_empty(manager):
-    actors = manager.all()
+    actors = manager.all
     assert len(actors) == 0
     assert isinstance(actors, list)
 
@@ -65,7 +65,7 @@ def test_all_multiple_actors(manager):
             last_name=last_name
         )
 
-    actors = manager.all()
+    actors = manager.all
     assert len(actors) == 3
 
     for i, (first_name, last_name) in enumerate(test_actors, start=1):
@@ -78,7 +78,7 @@ def test_update(manager):
     manager.create(first_name="Brad", last_name="Pitt")
     manager.update(pk=1, new_first_name="Bradley", new_last_name="Pitt")
 
-    actors = manager.all()
+    actors = manager.all
     assert len(actors) == 1
     assert actors[0].first_name == "Bradley"
     assert actors[0].last_name == "Pitt"
@@ -89,7 +89,7 @@ def test_delete(manager):
     manager.create(first_name="Leonardo", last_name="DiCaprio")
 
     manager.delete(pk=1)
-    actors = manager.all()
+    actors = manager.all
 
     assert len(actors) == 1
     assert actors[0].first_name == "Leonardo"
