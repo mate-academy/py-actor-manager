@@ -1,6 +1,8 @@
 
 import sqlite3
 
+from app.models import Actor
+
 
 class ActorManager:
     def __init__(self, db_name: str, table_name: str) -> None:
@@ -17,11 +19,21 @@ class ActorManager:
         cursor.execute(query, (first_name, last_name))
         self._connection.commit()
 
-    def all(self) -> list:
+    def all(self) -> list[Actor]:
         query = f"SELECT * FROM {self.table_name}"
         cursor = self._connection.cursor()
         cursor.execute(query)
-        return cursor.fetchall()
+
+        actors = cursor.fetchall()
+
+        return [
+            Actor(
+                id=actor[0],
+                first_name=actor[1],
+                last_name=actor[2]
+            )
+            for actor in actors
+        ]
 
     def update(
         self,
@@ -32,14 +44,14 @@ class ActorManager:
         query = (
             f"UPDATE {self.table_name}"
             " SET first_name = ?, last_name = ?"
-            " WHERE pk = ?"
+            " WHERE id = ?"
         )
         cursor = self._connection.cursor()
         cursor.execute(query, (new_first_name, new_last_name, pk))
         self._connection.commit()
 
     def delete(self, pk: int) -> None:
-        query = f"DELETE FROM {self.table_name} WHERE pk = ?"
+        query = f"DELETE FROM {self.table_name} WHERE id = ?"
         cursor = self._connection.cursor()
         cursor.execute(query, (pk,))
         self._connection.commit()
