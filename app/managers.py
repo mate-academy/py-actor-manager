@@ -6,7 +6,7 @@ from app.models import Actor
 class ActorManager:
     def __init__(self, db_name: str, table_name: str) -> None:
         self.connection = sqlite3.connect(db_name)
-        # Quote the identifier so table names containing special characters work.
+        # Quote the identifier so table names with special characters work.
         self.table_name = '"' + table_name.replace('"', '""') + '"'
         self.connection.execute(
             f"""
