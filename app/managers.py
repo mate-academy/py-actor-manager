@@ -10,11 +10,11 @@ class ActorManager():
         self.connection = sqlite3.connect(db_name)
         self.connection.execute(
             f"""
-                CREATE TABLE IF NOT EXISTS {self.table_name} (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    first_name TEXT NOT NULL,
-                    last_name TEXT NOT NULL
-                )
+            CREATE TABLE IF NOT EXISTS {self.table_name} (
+                id INTEGER PRIMARY KEY,
+                first_name TEXT NOT NULL,
+                last_name TEXT NOT NULL
+            )
             """
         )
         self.connection.commit()
@@ -30,22 +30,27 @@ class ActorManager():
         self.connection.commit()
 
     def all(self) -> list[Actor]:
-        cursor = self.connection.execute(
-            f"SELECT id, first_name, last_name FROM {self.table_name}"
+        actor_list = []
+        actor_db_list = self.connection.execute(
+            f"""
+                SELECT id, first_name, last_name
+                FROM {self.table_name}
+            """
         )
-        rows = cursor.fetchall()
-        return [
-            Actor(
-                id=row[0], first_name=row[1], last_name=row[2]
-            ) for row in rows
-        ]
+        for actor in actor_db_list:
+            actor_list.append(Actor(*actor))
+        return actor_list
 
-    def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
+    def update(
+            self, pk: int,
+            new_first_name: str,
+            new_last_name: str
+    ) -> None:
         self.connection.execute(
             f"""
-            UPDATE {self.table_name}
-            SET first_name = ?, last_name = ?
-            WHERE id = ?
+                UPDATE {self.table_name}
+                SET first_name = ?, last_name = ?
+                WHERE id = ?
             """,
             (new_first_name, new_last_name, pk)
         )
@@ -53,7 +58,10 @@ class ActorManager():
 
     def delete(self, pk: int) -> None:
         self.connection.execute(
-            f"DELETE FROM {self.table_name} WHERE id = ?",
+            f"""
+            DELETE FROM {self.table_name}
+            WHERE id = ?
+            """,
             (pk,)
         )
         self.connection.commit()
