@@ -16,7 +16,7 @@ class ActorManager:
         self.conn.commit()
 
     def all(self) -> list:
-        actors = self.conn.execute("SELECT * FROM actors").fetchall()
+        actors = self.conn.execute(f"SELECT * FROM {self.table_name}").fetchall()
         return [Actor(*actor) for actor in actors]
 
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
