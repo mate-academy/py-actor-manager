@@ -19,7 +19,7 @@ class ActorManager:
         self.conn.commit()
         cursor.close()
 
-    def read(self) -> list[Actor]:
+    def all(self) -> list[Actor]:
         cursor = self.conn.cursor()
         cursor.execute(
             f"""SELECT id, first_name, last_name
